@@ -1,33 +1,34 @@
 ---
-- name: Install and configure OpenVPN on Raspberry Pi
-  hosts: tv-vpn
+- name: Install and configure OpenVPN client on vpntv
+  hosts: vpntv
   become: yes
   
   tasks:
-
-  - name: Ensure apt cache is up to date.
-    ansible.builtin.apt:
-      update_cache: true
-      cache_valid_time: 3600
-    when:
-      - ansible_facts.os_family == "Debian"
-
-  - name: Ensure pacman cache is up to date
-    community.general.pacman:
-      update_cache: true
-    when:
-      - ansible_facts.os_family == "Archlinux"
-      
-  - name: Upgrade packages
+  - name: Debian packages Upgrade
     apt:
       upgrade: yes
+      update_cache: yes
+      cache_valid_time: 3600
+    when: ansible_facts.os_family == "Debian"
   
-  - name: Install OpenVPN
+  - name: Arch packages Upgrade
+    pacman:
+      upgrade: yes
+    when: ansible_facts.os_family == "Arch"
+  
+  - name: Debian OpenVPN Installation
     apt:
       name: openvpn
       state: present
+    when: ansible_facts.os_family == "Debian"
+    
+  - name: Arch OpenVPN Installation
+    pacman:
+      name: openvpn
+      state: present
+    when: ansible_facts.os_family == "Arch"
       
-  - name: Copy client.conf to OpenVPN directory
+  - name: Copy client.ovpn as client.conf to OpenVPN directory
     copy:
       src: ./client-ovpn/client.ovpn
       dest: /etc/openvpn/client.conf
@@ -35,9 +36,37 @@
       group: root
       mode: 0600
       
-  - name: Enable OpenVPN as a system service
+  - name: Ensure OpenVPN service unit file exists
+    become: yes
+    lineinfile:
+      dest: /etc/systemd/system/openvpn@.service
+      line: |
+        [Unit]
+        Description="OpenVPN connection to VPN server"
+        Wants=network-online.target
+        After=network.target
+  
+        [Service]
+        Type=forking
+        User=root
+        Group=root
+        WorkingDirectory=/etc/openvpn
+        ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client.conf
+        Restart=on-failure
+    when: ansible_facts.os_family == "Debian"
+
+  - name: Enable OpenVPN service
+    become: yes
     systemd:
-      name: openvpn@client
+      name: openvpn@.service
+      state: started
+      enabled: yes
+      daemon_reload: yes
+    when: ansible_facts.os_family == "Debian"
+    
+  - name: Enable OpenVPN as a system service in Arch
+    systemd:
+      name: openvpn@.service
       state: started
       enabled: yes
       daemon_reload: yes
@@ -46,19 +75,27 @@
           [Unit]
           Description=OpenVPN connection to VPN server
           After=network.target
+          Wants=network-online.target
 
           [Service]
           Type=forking
           User=root
           Group=root
           WorkingDirectory=/etc/openvpn
-          ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client.conf
+          ExecStart=/usr/bin/openvpn --config /etc/openvpn/client.conf
           Restart=on-failure
-          
-  - name: Verify OpenVPN service status
+    when: ansible_facts.os_family == "Arch"
+    
+#  - name: Reload systemd to use OpenVPN service configuration for Debian
+#    shell: systemctl daemon-reload
+#    when: ansible_facts.os_family == "Debian"
+    
+  - name: Verify OpenVPN service status for Arch
     shell: systemctl status openvpn@client
     register: openvpn_status
+    when: ansible_facts.os_family == "Arch"
     
-  - name: Display OpenVPN service status
-    debug:
-      var: openvpn_status.stdout_lines
+  - name: Verify OpenVPN service status in Debian
+    shell: systemctl status openvpn@client
+    register: openvpn_status
+    when: ansible_facts.os_family == "Debian"
