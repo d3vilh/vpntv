@@ -31,7 +31,7 @@
   - name: Copy client.conf to OpenVPN directory
     copy:
       src: ./client-ovpn/client.ovpn
-      dest: /etc/openvpn/client.conf
+      dest: /etc/openvpn/client/client.conf
       owner: root
       group: root
       mode: 0644
@@ -55,7 +55,7 @@
         [Service]
         PrivateTmp=yes
         User=root
-        ExecStart=/usr/sbin/openvpn --config /etc/openvpn/%i.conf
+        ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client/%i.conf
 
         [Install]
         WantedBy=multi-user.target
@@ -71,6 +71,6 @@
   - name: Reload systemd to use OpenVPN service configuration
     shell: systemctl daemon-reload
 
-  - name: Verify OpenVPN service status in Debian
+  - name: Verify OpenVPN service status
     shell: systemctl status openvpn-client@client.service
     register: openvpn_status
