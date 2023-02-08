@@ -1,7 +1,14 @@
 # Realtek 8188eu offstaging modules
-Here I'll try to explain how to install the Realtek 8188eu offstaging modules on a Raspberry Pi running Raspbian Buster.
+Builded Linux kernel modules for the Realtek 8188eu chipset. The modules are built for the Raspberry Pi armv61 and armv8 architectures.
 
 Modules build from the [aircrack-ng offstaging branch](https://github.com/aircrack-ng/rtl8188eus) of the Realtek 8188eu driver. The offstaging branch is the most recent branch of the driver and contains the latest fixes and features. The offstaging branch is not yet merged into the master branch of the driver and has additional features that added by [aircrack-ng](https://github.com/aircrack-ng) team.
+
+### Following Linux kernels are supported:
+* 5.10.73-v8+ (Raspberry Pi OS 2021-05-07 64-bit) (armv8l)
+* 5.10.73+ v71 (Raspberry Pi OS 2021-05-07 32-bit) (armv6l)
+  
+* 5.15.84-v8+ (Raspberry Pi OS 2021-05-07 64-bit) (armv8l)
+* 5.15.84+ v71 (Raspberry Pi OS 2021-05-07 32-bit) (armv6l)
 
 ## Installation
 run the following commands to install the driver:
