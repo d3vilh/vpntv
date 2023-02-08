@@ -44,7 +44,7 @@ Clone the drivers repository:
 ```
 git clone https://github.com/d3vilh/rtl8188eus
 ```
-Bild the driver:
+Build the driver:
 ```
 cd rtl8188eus
 make
