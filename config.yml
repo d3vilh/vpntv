@@ -4,6 +4,9 @@ config_dir: '~'
 
 # Using second wifi card dongle as AP to TV or TV-box (true/false).
 wifi_enable: true
+wifi_ssid: "vpntv"
+wifi_password: "Glory2Ukraine!" 
 
 # Using Ethernet interface as direct connection to TV or TV-box (true/false).
 ethernet_enable: false
+bridge_subnet: "10.0.90.0/24"
