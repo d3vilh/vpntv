@@ -34,10 +34,14 @@
   5. Make copies of the configuration files and modify them for your enviroment:
      ```shell
      yes | cp -p example.inventory.ini inventory.ini 
+     yes | cp -p example.config.yml config.yml
      ```
-  6. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
-  7. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-  8. Run installation playbook:
+  6.  Modify `config.yml` to your needs.
+     **To enable** WiFi connection for your TV change `enable_wifi false` option to `enable_wifi true` and vs to disable.
+     > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
+  7. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
+  8. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+  9. Run installation playbook:
      ```shell
      ansible-playbook main.yml
      ```
