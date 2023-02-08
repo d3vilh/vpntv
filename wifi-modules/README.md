@@ -11,14 +11,18 @@ Modules build from the [aircrack-ng offstaging branch](https://github.com/aircra
 * 5.15.84+ v71 (Raspberry Pi OS 2021-05-07 32-bit) (armv6l)
 
 ## Installation
-run the following commands to install the driver:
+Run the following commands to install the driver:
 ```
 sudo apt-get update
-sudo apt-get install raspberrypi-kernel-headers
 git clone https://github.com/d3vilh/vpntv
 cd vpntv/wifi-modules
 ./install.sh
 ```
+Install the kernel headers if you get an error:
+```
+sudo apt-get install raspberrypi-kernel-headers
+```
+
 The driver will be installed in `/usr/src/rtl8188eus-1.0` and the kernel module will be installed in `/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rtl8188eu`.
 
 Reboot the Raspberry Pi and the driver should be loaded automatically.
