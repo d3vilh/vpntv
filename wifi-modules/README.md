@@ -28,3 +28,38 @@ sudo apt-get install raspberrypi-kernel-headers
 The driver will be installed in `/usr/src/rtl8188eus-1.0` and the kernel module will be installed in `/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rtl8188eu`.
 
 Reboot the Raspberry Pi and the driver should be loaded automatically.
+
+## To build the driver from source
+Run the following commands to build the driver:
+
+Install the dkms and bc:
+```bash
+sudo apt install dkms bc
+```
+**Reinstall** kernel headers:
+```
+sudo apt reinstall raspberrypi-kernel-headers
+```
+Clone the drivers repository:
+```
+git clone https://github.com/d3vilh/rtl8188eus
+```
+Bild the driver:
+```
+cd rtl8188eus
+make
+```
+Blacklist the official branch of the driver:
+```
+echo 'blacklist r8188eu'|sudo tee -a '/etc/modprobe.d/realtek.conf'
+```
+Install the driver:
+```
+sudo make install
+```
+Reboot the Raspberry Pi:
+```
+sudo reboot
+```
+
+
