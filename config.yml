@@ -2,6 +2,9 @@
 # Location where configuration files will be stored.
 config_dir: '~'
 
+# Enabling OpenVPN client (true/false).
+ovpnc_enable: true
+
 # Using second wifi card dongle as AP to TV or TV-box (true/false).
 wifi_enable: true
 wifi_ssid: "vpntv"              # WiFi network name to connect to.
