@@ -95,7 +95,7 @@
         line: |
           country_code=SO
           interface=wlan1
-          ssid=d3rpi2
+          ssid=vpntv
           hw_mode=g
           channel=7
           macaddr_acl=0
