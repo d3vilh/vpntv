@@ -16,7 +16,7 @@
      sudo apt-get install -y python3-pip
      pip3 install ansible
      ```
-     > If you'll need updated Rust version(most probably, you need), you can install it from [here](https://www.rust-lang.org/tools/install).
+     > If you'll need updated Rust version (most probably, you do), you can install it from [here](https://www.rust-lang.org/tools/install).
   2. Clone this repository: 
      ```shell
      git clone https://github.com/d3vilh/vpntv
