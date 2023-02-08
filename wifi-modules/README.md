@@ -6,9 +6,11 @@ Modules build from the [aircrack-ng offstaging branch](https://github.com/aircra
 ### Following Linux kernels are supported:
 * 5.10.73-v8+ (Raspberry Pi OS 2021-05-07 64-bit) (armv8l)
 * 5.10.73+ v71 (Raspberry Pi OS 2021-05-07 32-bit) (armv6l)
-  
 * 5.15.84-v8+ (Raspberry Pi OS 2021-05-07 64-bit) (armv8l)
 * 5.15.84+ v71 (Raspberry Pi OS 2021-05-07 32-bit) (armv6l)
+
+### Following Realtek 8188eu chipsets are supported:
+* ID 0bda:8179 Realtek Semiconductor Corp. RTL8188EUS 802.11n Wireless Network Adapter
 
 ## Installation
 Run the following commands to install the driver:
@@ -16,7 +18,7 @@ Run the following commands to install the driver:
 sudo apt-get update
 git clone https://github.com/d3vilh/vpntv
 cd vpntv/wifi-modules
-./install.sh
+sudo ./install.sh
 ```
 Install the kernel headers if you get an error:
 ```
