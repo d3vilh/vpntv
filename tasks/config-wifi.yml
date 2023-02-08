@@ -107,7 +107,7 @@
           wpa_pairwise=TKIP
           rsn_pairwise=CCMP
         state: present
-     notify:
+    notify:
       - restart hostapd
 
 handlers:
