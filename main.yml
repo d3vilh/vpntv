@@ -28,10 +28,10 @@
       when: ovpnc_enable
 
     - name: Configuring second wifi card dongle as AP to TV
-      ansible.builtin.import_tasks: tasks/wifi.yml
+      ansible.builtin.import_tasks: tasks/config-wifi.yml
       when: wifi_enable
 
     - name: Configuring Ethernet interface as direct connection to TV
-      ansible.builtin.import_tasks: tasks/ethernet.yml
+      ansible.builtin.import_tasks: tasks/config-ethernet.yml
       when: ethernet_enable
     
