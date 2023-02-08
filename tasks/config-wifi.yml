@@ -1,5 +1,6 @@
 ---
 - name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Debian
+  become: yes
   apt:
     name: 
     - udhcpd
@@ -10,6 +11,7 @@
   when: ansible_facts.os_family == "Debian"
 
 - name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Arch
+  become: yes
   pacman:
     name: 
     - udhcpd
@@ -19,27 +21,10 @@
     state: present
   when: ansible_facts.os_family == "Arch"
 
-- name: Allow incoming traffic on wlan1 for port 53 (UDP)
-   ufw:
-     rule: allow
-     direction: incoming
-     interface: wlan1
-     port: 53/udp
-     proto: udp
-
-- name: Allow incoming traffic on wlan1 for port 67 (UDP)
-  ufw:
-    rule: allow
-    direction: incoming
-    interface: wlan1
-    port: 67/udp
-    proto: udp
-
-- name: Add OpenVPN POSTROUTNG rules to UFW
-  hosts: all
+- name: Add OpenVPN rules to UFW
   become: yes
   tasks:
-    - name: Add OpenVPN rules to UFW
+    - name: Add OpenVPN POSTROUTNG rules to UFW
       lineinfile:
         path: /etc/ufw/before.rules
         insertafter: "# START OPENVPN RULES"
@@ -51,10 +36,101 @@
       notify:
         - restart ufw
 
+    - name: Allow incoming traffic on wlan1 for port 67 (UDP)
+      ufw:
+        rule: allow
+        direction: incoming
+        interface: wlan1
+        port: 67/udp
+        proto: udp
+    
+    - name: Allow incoming traffic on wlan1 for port 53 (UDP)
+      ufw:
+        rule: allow
+        direction: incoming
+        interface: wlan1
+        port: 53/udp
+        proto: udp
+
+- name: Add static IP address configuration for wlan1 interface
+  become: yes
+  lineinfile:
+    dest: /etc/dhcpcd.conf
+    line: |
+      interface wlan1
+      static ip_address=10.0.90.1/24
+      nohook wpa_supplicant
+    state: present
+  notify:
+    - restart dhcpcd
+
+- name: Backup dnsmasq configuration file
+  become: yes
+  file:
+    path: /etc/dnsmasq.conf
+    state: absent
+    backup: yes
+
+- name: Create new dnsmasq configuration file
+  become: yes
+  lineinfile:
+    dest: /etc/dnsmasq.conf
+    line: |
+      interface=wlan1 # Listening interface
+      dhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h
+                    # Pool of IP addresses served via DHCP
+      domain=wlan   # Local wireless DNS domain
+      address=/gw.wlan/10.0.90.1
+                    # Alias for this router
+    state: present
+  notify:
+    - restart dnsmasq
+
+- name: Configure hostapd
+  become: yes
+  tasks:
+    - name: Create hostapd configuration file
+      lineinfile:
+        dest: /etc/hostapd/hostapd.conf
+        line: |
+          country_code=SO
+          interface=wlan1
+          ssid=d3rpi2
+          hw_mode=g
+          channel=7
+          macaddr_acl=0
+          auth_algs=1
+          ignore_broadcast_ssid=0
+          wpa=2
+          wpa_passphrase=cpgtbynrgm
+          wpa_key_mgmt=WPA-PSK
+          wpa_pairwise=TKIP
+          rsn_pairwise=CCMP
+        state: present
+     notify:
+      - restart hostapd
+
 handlers:
    - name: restart ufw
+     become: yes
      service:
        name: ufw
        state: restarted
 
+   - name: restart dhcpcd
+     become: yes
+     service:
+       name: dhcpcd
+       state: restarted
 
+   - name: restart dnsmasq
+     become: yes
+     service:
+       name: dnsmasq
+       state: restarted
+
+   - name: restart hostapd
+     become: yes
+     service:
+       name: hostapd
+       state: restarted
