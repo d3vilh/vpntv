@@ -1,5 +1,5 @@
 # Realtek 8188eu offstaging modules
-Builded Linux kernel modules for the Realtek 8188eu chipset. The modules are built for the Raspberry Pi armv61 and armv8 architectures.
+Builded Linux kernel modules for the Realtek 8188eu, 8188eus and 8188etv chipsets. The modules are built for the Raspberry Pi armv61 and armv8 architectures.
 
 Modules build from the [aircrack-ng offstaging branch](https://github.com/aircrack-ng/rtl8188eus) of the Realtek 8188eu driver. The offstaging branch is the most recent branch of the driver and contains the latest fixes and features. The offstaging branch is not yet merged into the master branch of the driver and has additional features that added by [aircrack-ng](https://github.com/aircrack-ng) team.
 
