@@ -9,7 +9,8 @@
 - **16Gb SD Card**
 > You can run it on CM4 board with 8Gb eMMC EEPROM chip as well.
 
-# Installation
+# Installation (!PLEASE DONT RUN THIS YET!)
+## Development in active process, please don't run this yet!
 
   1. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
