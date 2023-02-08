@@ -18,7 +18,7 @@ Run the following commands to install the driver:
 sudo apt-get update
 git clone https://github.com/d3vilh/vpntv
 cd vpntv/wifi-modules
-sudo ./install.sh
+sudo ./8188eu-install.sh
 ```
 Install the kernel headers if you get an error:
 ```
