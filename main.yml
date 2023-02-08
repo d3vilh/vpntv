@@ -2,75 +2,91 @@
 - name: Install and configure OpenVPN client on vpntv
   hosts: vpntv
   become: yes
-  
+
+  pre_tasks:
+    - name: Load configuration (with defaults from example file).
+      ansible.builtin.include_vars: "{{ item }}"
+      loop:
+        - example.config.yml
+        - config.yml
+
+    - name: Debian packages Upgrade
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Arch packages Upgrade
+      pacman:
+        upgrade: yes
+      when: ansible_facts.os_family == "Arch"
+
   tasks:
-  - name: Debian packages Upgrade
-    apt:
-      upgrade: yes
-      update_cache: yes
-      cache_valid_time: 3600
-    when: ansible_facts.os_family == "Debian"
-  
-  - name: Arch packages Upgrade
-    pacman:
-      upgrade: yes
-    when: ansible_facts.os_family == "Arch"
-  
-  - name: Debian OpenVPN Installation
-    apt:
-      name: openvpn
-      state: present
-    when: ansible_facts.os_family == "Debian"
-    
-  - name: Arch OpenVPN Installation
-    pacman:
-      name: openvpn
-      state: present
-    when: ansible_facts.os_family == "Arch"
+    - name: Debian OpenVPN Installation
+      apt:
+        name: openvpn
+        state: present
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Arch OpenVPN Installation
+      pacman:
+        name: openvpn
+        state: present
+      when: ansible_facts.os_family == "Arch"
+        
+    - name: Copy client.conf to OpenVPN directory
+      copy:
+        src: ./client-ovpn/client.ovpn
+        dest: /etc/openvpn/client/client.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Create OpenVPN client service unit file
+      become: yes
+      file:
+        path: /etc/systemd/system/openvpn@.service
+        state: touch
+
+    - name: Create OpenVPN client service configuration
+      become: yes
+      lineinfile:
+        dest: /etc/systemd/system/openvpn@.service
+        line: |
+          [Unit]
+          Description=OpenVPN client connection to %i
+          Wants=network-online.target
+          After=network-online.target
+
+          [Service]
+          PrivateTmp=yes
+          User=root
+          ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client/%i.conf
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Enable OpenVPN service
+      become: yes
+      systemd:
+        name: openvpn-client@client.service
+        state: started
+        enabled: yes
+        daemon_reload: yes
       
-  - name: Copy client.conf to OpenVPN directory
-    copy:
-      src: ./client-ovpn/client.ovpn
-      dest: /etc/openvpn/client/client.conf
-      owner: root
-      group: root
-      mode: 0644
+    - name: Reload systemd to use OpenVPN service configuration
+      shell: systemctl daemon-reload
 
-  - name: Create OpenVPN client service unit file
-    become: yes
-    file:
-      path: /etc/systemd/system/openvpn@.service
-      state: touch
-
-  - name: Create OpenVPN client service configuration
-    become: yes
-    lineinfile:
-      dest: /etc/systemd/system/openvpn@.service
-      line: |
-        [Unit]
-        Description=OpenVPN client connection to %i
-        Wants=network-online.target
-        After=network-online.target
-
-        [Service]
-        PrivateTmp=yes
-        User=root
-        ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client/%i.conf
-
-        [Install]
-        WantedBy=multi-user.target
-
-  - name: Enable OpenVPN service
-    become: yes
-    systemd:
-      name: openvpn-client@client.service
-      state: started
-      enabled: yes
-      daemon_reload: yes
+    - name: Verify OpenVPN service status
+      shell: systemctl status openvpn-client@client.service
+      register: openvpn_status
     
-  - name: Reload systemd to use OpenVPN service configuration
-    shell: systemctl daemon-reload
+    - name: Using second wifi card dongle as AP to TV
+      ansible.builtin.import_tasks: tasks/wifi.yml
+      when: wifi_enable
 
-  - name: Verify OpenVPN service status
-    shell: systemctl status openvpn-client@client.service
-    register: openvpn_status
+    - name: Using Ethernet interface as direct connection to TV
+      ansible.builtin.import_tasks: tasks/ethernet.yml
+      when: ethernet_enable
+    

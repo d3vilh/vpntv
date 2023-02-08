@@ -1,0 +1,9 @@
+---
+# Location where configuration files will be stored.
+config_dir: '~'
+
+# Using second wifi card dongle as AP to TV or TV-box (true/false).
+wifi_enable: true
+
+# Using Ethernet interface as direct connection to TV or TV-box (true/false).
+ethernet_enable: false
