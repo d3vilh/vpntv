@@ -25,10 +25,14 @@
   tasks:
     - name: Configuring OpenVPN client
       ansible.builtin.import_tasks: tasks/ovpn-client.yml
-      when: ovpnc_enable
+      when: ovpnclient_enable
 
-    - name: Configuring second wifi card dongle as AP to TV
+    - name: Configuring second wifi card as AP for TV
       ansible.builtin.import_tasks: tasks/config-wifi.yml
+      when: wifi_enable
+
+    - name: Installing WiFi card modules
+      ansible.builtin.import_tasks: tasks/wifi-modules.yml
       when: wifi_enable
 
     - name: Configuring Ethernet interface as direct connection to TV
