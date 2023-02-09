@@ -22,7 +22,7 @@
      ```
   2. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
-     sudo apt-get install -y python3-pip ansible
+     sudo apt-get install -y python3-pip ansible git
      # pip install --upgrade pip   # Currently Debian Buster has pip 9.0.1, which is too old for Ansible
      # pip3 install ansible        # Ideally you should use pip3, but it's not available on Debian Buster, you need to build it from source including Rust and Cryptography libraries. That is why we using ansible from repo.
      ```
