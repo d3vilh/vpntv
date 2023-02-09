@@ -21,36 +21,43 @@
     state: present
   when: ansible_facts.os_family == "Arch"
 
-- name: Add OpenVPN rules to UFW
+- name: Enable and start ufw
   become: yes
-  tasks:
-    - name: Add OpenVPN POSTROUTNG rules to UFW
-      lineinfile:
-        path: /etc/ufw/before.rules
-        insertafter: "# START OPENVPN RULES"
-        line: |
-          *nat
-          :POSTROUTING ACCEPT [0:0]
-          -A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE
-          COMMIT
-      notify:
-        - restart ufw
+  service:
+    name: ufw
+    state: started
+    enabled: yes
 
-    - name: Allow incoming traffic on wlan1 for port 67 (UDP)
-      ufw:
-        rule: allow
-        direction: incoming
-        interface: wlan1
-        port: 67/udp
-        proto: udp
+- name: Add OpenVPN POSTROUTNG rules to UFW
+  become: yes
+  lineinfile:
+    path: /etc/ufw/before.rules
+    insertafter: "# START OPENVPN RULES"
+    line: |
+      *nat
+      :POSTROUTING ACCEPT [0:0]
+      -A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE
+      COMMIT
+  notify:
+    - restart ufw
+
+- name: Allow incoming traffic on wlan1 for port 67 (UDP)
+  become: yes
+  ufw:
+    rule: allow
+    direction: incoming
+    interface: wlan1
+    port: 67/udp
+    proto: udp
     
-    - name: Allow incoming traffic on wlan1 for port 53 (UDP)
-      ufw:
-        rule: allow
-        direction: incoming
-        interface: wlan1
-        port: 53/udp
-        proto: udp
+- name: Allow incoming traffic on wlan1 for port 53 (UDP)
+  become: yes
+  ufw:
+    rule: allow
+    direction: incoming
+    interface: wlan1
+    port: 53/udp
+    proto: udp
 
 - name: Add static IP address configuration for wlan1 interface
   become: yes
@@ -109,28 +116,3 @@
         state: present
       notify:
         - restart hostapd
-
-handlers:
-   - name: restart ufw
-     become: yes
-     service:
-       name: ufw
-       state: restarted
-
-   - name: restart dhcpcd
-     become: yes
-     service:
-       name: dhcpcd
-       state: restarted
-
-   - name: restart dnsmasq
-     become: yes
-     service:
-       name: dnsmasq
-       state: restarted
-
-   - name: restart hostapd
-     become: yes
-     service:
-       name: hostapd
-       state: restarted
