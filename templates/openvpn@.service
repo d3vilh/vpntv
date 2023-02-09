@@ -1,0 +1,12 @@
+[Unit]
+Description=OpenVPN client connection to %i
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+PrivateTmp=yes
+User=root
+ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client/%i.conf
+
+[Install]
+WantedBy=multi-user.target

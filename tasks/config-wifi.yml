@@ -46,18 +46,18 @@
   become: yes
   ufw:
     rule: allow
-    direction: incoming
+    direction: in
     interface: wlan1
-    port: 67/udp
+    port: 67
     proto: udp
     
 - name: Allow incoming traffic on wlan1 for port 53 (UDP)
   become: yes
   ufw:
     rule: allow
-    direction: incoming
+    direction: in
     interface: wlan1
-    port: 53/udp
+    port: 53
     proto: udp
 
 - name: Add static IP address configuration for wlan1 interface
