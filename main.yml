@@ -22,6 +22,10 @@
         upgrade: yes
       when: ansible_facts.os_family == "Arch"
 
+  handlers:
+    - name: Include handlers.
+      ansible.builtin.import_tasks: tasks/handlers.yml
+
   tasks:
     - name: Configuring OpenVPN client
       ansible.builtin.import_tasks: tasks/ovpn-client.yml

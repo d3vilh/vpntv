@@ -1,5 +1,4 @@
 ---
-  tasks:
     - name: Debian OpenVPN Installation
       become: yes
       apt:

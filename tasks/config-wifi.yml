@@ -107,8 +107,8 @@
           wpa_pairwise=TKIP
           rsn_pairwise=CCMP
         state: present
-    notify:
-      - restart hostapd
+      notify:
+        - restart hostapd
 
 handlers:
    - name: restart ufw

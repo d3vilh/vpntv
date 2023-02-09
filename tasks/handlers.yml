@@ -1,0 +1,24 @@
+---
+ - name: restart ufw
+   become: yes
+   service:
+     name: ufw
+     state: restarted
+
+ - name: restart dhcpcd
+   become: yes
+   service:
+     name: dhcpcd
+     state: restarted
+
+ - name: restart dnsmasq
+   become: yes
+   service:
+     name: dnsmasq
+     state: restarted
+     
+ - name: restart hostapd
+   become: yes
+   service:
+     name: hostapd
+     state: restarted
