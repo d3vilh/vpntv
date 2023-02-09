@@ -8,7 +8,7 @@
     - hostapd
     - ufw
     state: present
-  when: ansible_facts.os_family == "Debian"
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Arch
   become: yes
@@ -19,7 +19,7 @@
     - hostapd
     - ufw
     state: present
-  when: ansible_facts.os_family == "Arch"
+  when: ansible_facts.os_family == 'Arch'
 
 - name: Enable and start ufw
   become: yes
@@ -48,7 +48,7 @@
     rule: allow
     direction: in
     interface: wlan1
-    port: 67
+    port: '67'
     proto: udp
     
 - name: Allow incoming traffic on wlan1 for port 53 (UDP)
@@ -57,7 +57,7 @@
     rule: allow
     direction: in
     interface: wlan1
-    port: 53
+    port: '53'
     proto: udp
 
 - name: Add static IP address configuration for wlan1 interface
@@ -76,7 +76,7 @@
   become: yes
   file:
     path: /etc/dnsmasq.conf
-    state: absent
+    state: file
     backup: yes
 
 - name: Create new dnsmasq configuration file
@@ -94,24 +94,36 @@
   notify:
     - restart dnsmasq
 
-- name: Create hostapd configuration file
+- name: Copy hostapd configuration file
   become: yes
-  lineinfile:
+  copy:
+    src: ./templates/hostapd.conf.yaml
     dest: /etc/hostapd/hostapd.conf
-    line: |
-      country_code=SO
-      interface=wlan1
-      ssid=vpntv
-      hw_mode=g
-      channel=7
-      macaddr_acl=0
-      auth_algs=1
-      ignore_broadcast_ssid=0
-      wpa=2
-      wpa_passphrase=cpgtbynrgm
-      wpa_key_mgmt=WPA-PSK
-      wpa_pairwise=TKIP
-      rsn_pairwise=CCMP
-    state: present
+    owner: root
+    group: root
+    mode: 0644
   notify:
     - restart hostapd
+
+
+#- name: Create hostapd configuration file
+#  become: yes
+#  lineinfile:
+#    dest: /etc/hostapd/hostapd.conf
+#    line: |
+#      country_code=SO
+#      interface=wlan1
+#      ssid=vpntv
+#      hw_mode=g
+#      channel=7
+#      macaddr_acl=0
+#      auth_algs=1
+#      ignore_broadcast_ssid=0
+#      wpa=2
+#      wpa_passphrase=cpgtbynrgm
+#      wpa_key_mgmt=WPA-PSK
+#      wpa_pairwise=TKIP
+#      rsn_pairwise=CCMP
+#    state: present
+#  notify:
+#    - restart hostapd

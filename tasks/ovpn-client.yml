@@ -23,7 +23,7 @@
     - name: Copy openvpn@.service to systemd directory
       become: yes
       copy:
-        src: ./templates/openvpn@.service
+        src: ./templates/openvpn@.service.yaml
         dest: /etc/systemd/system/openvpn@.service
         owner: root
         group: root
