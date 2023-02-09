@@ -29,32 +29,6 @@
         group: root
         mode: 0644
 
-#    - name: Create OpenVPN client service unit file
-#      become: yes
-#      file:
-#        path: /etc/systemd/system/openvpn@.service
-#        state: touch
-
-#    - name: Create OpenVPN client service configuration
-#      become: yes
-#      lineinfile:
-#        dest: /etc/systemd/system/openvpn@.service
-#        line: |
-#          [Unit]
-#          Description=OpenVPN client connection to %i
-#          Wants=network-online.target
-#          After=network-online.target
-
-#          [Service]
-#          PrivateTmp=yes
-#          User=root
-#          ExecStart=/usr/sbin/openvpn --config /etc/openvpn/client/%i.conf
-
-#          [Install]
-#          WantedBy=multi-user.target
-#        state: present
-#        create: yes
-
     - name: Enable OpenVPN service
       become: yes
       systemd:

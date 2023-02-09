@@ -1,7 +1,7 @@
 ---
 - name: Install and configure OpenVPN client on vpntv
   hosts: vpntv
-  become: yes
+  become: 'yes'
 
   pre_tasks:
     - name: Load configuration (with defaults from example file).
@@ -12,14 +12,14 @@
 
     - name: Debian packages Upgrade
       apt:
-        upgrade: yes
-        update_cache: yes
+        upgrade: 'yes'
+        update_cache: 'yes'
         cache_valid_time: '3600'
       when: ansible_facts.os_family == 'Debian'
 
     - name: Arch packages Upgrade
       pacman:
-        upgrade: yes
+        upgrade: 'yes'
       when: ansible_facts.os_family == 'Arch'
 
   handlers:

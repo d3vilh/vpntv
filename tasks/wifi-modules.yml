@@ -1,7 +1,13 @@
 ---
+ - name: Make Wi-Fi module installation script executable
+   become: yes
+   file:
+     path: ./wifi-modules/8188eu-install.sh
+     mode: 0755
+    
  - name: Run Wi-Fi module installation script
    become: yes
-   shell: ../wifi-modules/8188eu-install.sh
+   shell: ./wifi-modules/8188eu-install.sh
    
  - name: Restart server
    become: yes

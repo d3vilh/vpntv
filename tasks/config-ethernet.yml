@@ -1,22 +1,20 @@
 ---
-- name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Debian
+- name: Install and configure udhcpd, dnsmasq, and ufw on Debian
   become: yes
   apt:
     name: 
     - udhcpd
     - dnsmasq
-    - hostapd
     - ufw
     state: present
-  when: ansible_facts.os_family == "Debian"
+  when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Arch
+- name: Install and configure udhcpd, dnsmasq, and ufw on Arch
   become: yes
   pacman:
     name: 
     - udhcpd
     - dnsmasq
-    - hostapd
     - ufw
     state: present
-  when: ansible_facts.os_family == "Arch"
+  when: ansible_facts.os_family == 'Arch'
