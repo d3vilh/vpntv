@@ -7,7 +7,7 @@ config_dir: '~'
 #   |  |  |   __| | | |                
 #    \___/|__|  |_|___| 
 # Enabling OpenVPN client (true/false).
-ovpncient_enable: true             # You can "false" this line if you already have configured OpenVPN client.
+ovpnclient_enable: true             # You can "false" this line if you already have configured OpenVPN client.
 
 #    _ _ _ _ _____ _                   
 #   | | | |_|   __|_|                  
