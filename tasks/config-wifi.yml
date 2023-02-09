@@ -38,6 +38,7 @@
       :POSTROUTING ACCEPT [0:0]
       -A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE
       COMMIT
+    state: present
   notify:
     - restart ufw
 

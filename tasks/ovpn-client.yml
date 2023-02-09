@@ -1,12 +1,12 @@
 ---
-    - name: Debian OpenVPN Installation
+    - name: Debian OpenVPN-client Installation
       become: yes
       apt:
         name: openvpn
         state: present
       when: ansible_facts.os_family == "Debian"
 
-    - name: Arch OpenVPN Installation
+    - name: Arch OpenVPN-client Installation
       pacman:
         name: openvpn
         state: present
@@ -43,6 +43,7 @@
 
           [Install]
           WantedBy=multi-user.target
+        state: present
 
     - name: Enable OpenVPN service
       become: yes
@@ -53,8 +54,10 @@
         daemon_reload: yes
       
     - name: Reload systemd to use OpenVPN service configuration
+      become: yes
       shell: systemctl daemon-reload
 
-    - name: Verify OpenVPN service status
-      shell: systemctl status openvpn-client@client.service
-      register: openvpn_status
+#    - name: Verify OpenVPN service status
+#      become: yes
+#      shell: systemctl status openvpn-client@client.service
+#      register: openvpn_status  
