@@ -17,6 +17,8 @@
  ### Software installation steps
   1. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
+     sudo apt-get update -y
+     sudo apt-get upgrade -y
      sudo apt-get install -y python3-pip
      pip3 install ansible
      ```
