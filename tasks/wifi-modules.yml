@@ -1,12 +1,10 @@
 ---
-- name: Install Wi-Fi module and restart server
-  hosts: localhost
-  become: yes
-  tasks:
-    - name: Run Wi-Fi module installation script
-      shell: ../wifi-modules/8188eu-install.sh
-
-    - name: Restart server
-      service:
-        name: networking
-        state: restarted
+ - name: Run Wi-Fi module installation script
+   become: yes
+   shell: ../wifi-modules/8188eu-install.sh
+   
+ - name: Restart server
+   become: yes
+   service:
+     name: networking
+     state: restarted
