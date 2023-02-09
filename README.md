@@ -13,7 +13,7 @@
 ### Development in active process, please don't run this yet!
 
  ### HW components [preparation steps](https://github.com/d3vilh/vpntv-hardware)
- ### Raspberry Pi OS Lite installation steps
+ ### Raspberry Pi OS Lite [installation steps](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
  ### Software installation steps
   1. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
