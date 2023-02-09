@@ -1,2 +1,3 @@
 client-ovpn/client.ovpn
 .DS_Store
+config.yml
