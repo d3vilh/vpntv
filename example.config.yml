@@ -16,7 +16,8 @@ ovpncient_enable: true             # You can "false" this line if you already ha
 # Using USB WiFi card dongle as AP for TV or TV-box (true/false).
 wifi_enable: true
 wifi_ssid: "vpntv"                 # WiFi network name to connect to.
-wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!" :)
+wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
+wifi_interface: "wlan1"            # You can change it to "wlan0" if you desired.
 
 #    _____ _   _                   _   
 #   |   __| |_| |_ ___ ___ ___ ___| |_ 

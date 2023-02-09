@@ -35,7 +35,8 @@
       ansible.builtin.import_tasks: tasks/wifi-modules.yml
       when: wifi_enable
 
-    - name: Configuring Ethernet interface as direct connection to TV
-      ansible.builtin.import_tasks: tasks/config-ethernet.yml
-      when: ethernet_enable
+# This Part not completed yet:
+#    - name: Configuring Ethernet interface as direct connection to TV
+#      ansible.builtin.import_tasks: tasks/config-ethernet.yml
+#      when: ethernet_enable
     
