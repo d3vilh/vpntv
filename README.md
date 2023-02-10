@@ -22,11 +22,8 @@
      ```
   2. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
-     sudo apt-get install -y python3-pip ansible git
-     # pip3 install --upgrade pip   # Currently Debian Buster has pip 9.0.1, which is too old for Ansible
-     # pip3 install ansible        # Ideally you should use pip3, but it's not available on Debian Buster, you need to build it from source including Rust and Cryptography libraries. That is why we using ansible from repo.
+     sudo apt-get install -y git ansible
      ```
-     > If you'll need updated Rust version (most probably, you do), you can install it from [here](https://www.rust-lang.org/tools/install).
   3. Clone this repository: 
      ```shell
      git clone https://github.com/d3vilh/vpntv
@@ -49,9 +46,10 @@
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
   8 Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
-  9. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-  10. Run installation playbook.
+  1. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+  2.  Run installation playbook.
      ```shell
      ansible-playbook main.yml
+     
      ```
 > **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
