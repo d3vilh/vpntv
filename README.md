@@ -17,7 +17,7 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
 * Wifi hostapd installation
 
 ### Still in developement and broken:
-* Wifi dongle modules installation breaks RaspiOS :) Work in progress
+* Wifi dongle modules installation **breaks RaspiOS** :) Work in progress (not run it yet)
 * Ethernet connection is not develpped yet, will be the next step when WiFi modules will be fixed
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) and [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)in progress
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
