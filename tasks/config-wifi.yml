@@ -28,17 +28,23 @@
     state: started
     enabled: yes
 
+- name: Check vpntv OpenVPN POSTROUTNG rules to UFW is already present
+  become: yes
+  lineinfile:
+    state: absent
+    path: /etc/ufw/before.rules
+    regexp: "^# VPNTV OPENVPN RULES"
+  check_mode: true
+  changed_when: false # This just makes things look prettier in the logs
+  register: ufw_openvpn_rules_check
+
 - name: Add OpenVPN POSTROUTNG rules to UFW
   become: yes
-  blockinfile:
+  lineinfile:
+    state: present
     path: /etc/ufw/before.rules
-    block: |
-      # START OPENVPN RULES
-      *nat
-      :POSTROUTING ACCEPT [0:0]
-      -A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE
-      COMMIT
-    marker: "# START OPENVPN RULES"
+    line: "\n# VPNTV OPENVPN RULES\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE\nCOMMIT\n\n#VPNTV RULES END"
+  when: ufw_openvpn_rules_check.found == 0
   notify:
     - restart ufw
 
@@ -60,16 +66,23 @@
     port: '53'
     proto: udp
 
-- name: Add static IP address configuration for wlan1 interface
+- name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
   lineinfile:
+    state: absent
     dest: /etc/dhcpcd.conf
-    line: |
-      interface wlan1
-      static ip_address=10.0.90.1/24
-      nohook wpa_supplicant
-    insertafter: "^# interface wlan1"
+    regexp: "^# VPNTV DHCPCD RULES"
+  check_mode: true
+  changed_when: false # This just makes things look prettier in the logs
+  register: dhcpcd_vpntv_rules_check
+
+- name: Add vpntv dhcpcd static IP configuration
+  become: yes
+  lineinfile:
     state: present
+    path: /etc/dhcpcd.conf
+    line: "\n# VPNTV DHCPCD RULES\ninterface=wlan1\nstatic ip_address=10.0.90.1/24\nnohook wpa_supplicant\n#VPNTV CONF END"
+  when: dhcpcd_vpntv_rules_check.found == 0
   notify:
     - restart dhcpcd
 
@@ -79,19 +92,23 @@
     src: /etc/dnsmasq.conf
     dest: /etc/dnsmasq.conf.bak
 
-- name: Create new dnsmasq configuration file
+- name: Check vpntv dnsmasq configuration was already done
   become: yes
   lineinfile:
+    state: absent
     dest: /etc/dnsmasq.conf
-    line: |
-      interface=wlan1 # Listening interface
-      dhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h
-                    # Pool of IP addresses served via DHCP
-      domain=wlan   # Local wireless DNS domain
-      address=/gw.wlan/10.0.90.1
-                    # Alias for this router
-    insertafter: "^# interface=wlan1 # Listening interface"
+    regexp: "^# VPNTV DNSMASQ RULES"
+  check_mode: true
+  changed_when: false # This just makes things look prettier in the logs
+  register: dnsmasq_vpntv_rules_check
+
+- name: Add vpntv dnsmasq configuration
+  become: yes
+  lineinfile:
     state: present
+    path: /etc/dnsmasq.conf
+    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1 # Listening interface\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h # Pool of IP addresses served via DHCP\ndomain=wlan # Local wireless DNS domain\naddress=/gw.wlan/10.0.90.1 # Alias for this router\n#VPNTV CONF END"
+  when: dnsmasq_vpntv_rules_check.found == 0
   notify:
     - restart dnsmasq
 
