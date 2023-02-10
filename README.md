@@ -10,7 +10,17 @@
 > You can run it on CM4 board with 8Gb eMMC EEPROM chip as well.
 
 # Installation (!PLEASE DONT RUN THIS YET!)
-### Development in active process, please don't run this yet!
+At the moment, I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. 
+
+### Works fine:
+* OpenVPN Client installation and configuration
+* Wifi hostapd installation
+
+### Still in developement and broken:
+* Wifi dongle modules installation breaks RaspiOS :) Work in progress
+* Ethernet connection is not develpped yet, will be the next step when WiFi modules will be fixed
+* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) and [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)in progress
+* Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
 
  ### HW components [preparation steps](https://github.com/d3vilh/vpntv-hardware)
  ### Raspberry Pi OS Lite [installation steps](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
@@ -46,8 +56,8 @@
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
   8 Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
-  9. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-  10. Run installation playbook:
+  1. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+  2.  Run installation playbook:
      ```shell
      ansible-playbook main.yml
      ```
