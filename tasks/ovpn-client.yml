@@ -40,8 +40,3 @@
     - name: Reload systemd to use OpenVPN service configuration
       become: yes
       shell: systemctl daemon-reload
-
-#    - name: Verify OpenVPN service status
-#      become: yes
-#      shell: systemctl status openvpn-client@client.service
-#      register: openvpn_status  

@@ -8,9 +8,5 @@
  - name: Run Wi-Fi module installation script
    become: yes
    shell: ./wifi-modules/8188eu-install.sh
-   
- - name: Restart server
-   become: yes
-   service:
-     name: networking
-     state: restarted
+   notify:
+     - restart etworking

@@ -22,3 +22,9 @@
    service:
      name: hostapd
      state: restarted
+
+ - name: restart networking
+   become: yes
+   service:
+     name: networking
+     state: restarted
