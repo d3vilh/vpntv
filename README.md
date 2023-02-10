@@ -46,10 +46,10 @@
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
   8 Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
-  1. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-  2.  Run installation playbook.
+  9. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+  10. Run installation playbook:
      ```shell
      ansible-playbook main.yml
-     
      ```
+
 > **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
