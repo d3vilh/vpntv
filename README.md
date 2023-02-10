@@ -16,7 +16,7 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
 * OpenVPN Client installation and configuration
 * Wifi hostapd installation
 
-### Still in developement and broken:
+### Still in developement or broken:
 * Wifi dongle modules installation **breaks RaspiOS** :) Work in progress (not run it yet)
 * Ethernet connection is not develpped yet, will be the next step when WiFi modules will be fixed
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) and [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)in progress
