@@ -7,7 +7,7 @@
 - [**Raspberry Pi Imager**](https://www.raspberrypi.com/software/) to simplify installation of Raspberry Pi OS Lite (32-bit or 64-bit).
 - [**Raspios Lite (32-bit)**](https://downloads.raspberrypi.org/raspios_lite_armhf/images/) or [**Raspios Lite (64-bit)**](https://downloads.raspberrypi.org/raspios_lite_arm64/images/) however 32-bit images is recommended for setup on Raspberry Pi Zero boards.
 - **16Gb SD Card**
-> You can run it on CM4 board with 8Gb eMMC EEPROM chip as well.
+> You can run it on CM4 board with 4Gb eMMC EEPROM chip as well.
 
 # Installation (!PLEASE DONT RUN THIS YET!)
 At the moment, I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. 
@@ -17,9 +17,9 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
 * Wifi hostapd installation
 
 ### Still in developement or broken:
-* Wifi dongle modules installation **breaks RaspiOS** :) Work in progress (not run it yet)
-* Ethernet connection is not develpped yet, will be the next step when WiFi modules will be fixed
-* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) and [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)in progress
+* Wifi dongle modules installation **breaks RaspiOS** ಠ╭╮ಠ Work in progress (do not run it yet)
+* Ethernet connection is not develpped yet, its planned as next step after I'll fix WiFi modules
+* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) and [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration), both in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
 
  ### HW components [preparation steps](https://github.com/d3vilh/vpntv-hardware)
@@ -55,11 +55,18 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
   7.  Modify `config.yml` to your needs.
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
+   
   8 Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
-  1. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-  2.  Run installation playbook:
+
+  9. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+   
+  10. Run installation playbook:
      ```shell
      ansible-playbook main.yml
      ```
+     > **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
 
-> **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
+   11. Reboot your Pi:
+       ```shell
+       sudo reboot
+       ``` 
