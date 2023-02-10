@@ -43,7 +43,8 @@
   lineinfile:
     state: present
     path: /etc/ufw/before.rules
-    line: "\n# VPNTV OPENVPN RULES\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE\nCOMMIT\n\n#VPNTV RULES END"
+    line: "\n# VPNTV OPENVPN RULES\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s 10.0.90.0/24 -o wlan1 -j MASQUERADE\nCOMMIT\n#VPNTV RULES END"
+    backup: yes
   when: ufw_openvpn_rules_check.found == 0
   notify:
     - restart ufw
@@ -82,15 +83,10 @@
     state: present
     path: /etc/dhcpcd.conf
     line: "\n# VPNTV DHCPCD RULES\ninterface=wlan1\nstatic ip_address=10.0.90.1/24\nnohook wpa_supplicant\n#VPNTV CONF END"
+    backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
   notify:
     - restart dhcpcd
-
-- name: Copy dnsmasq configuration file to backup location
-  become: yes
-  copy:
-    src: /etc/dnsmasq.conf
-    dest: /etc/dnsmasq.conf.bak
 
 - name: Check vpntv dnsmasq configuration was already done
   become: yes
@@ -108,6 +104,7 @@
     state: present
     path: /etc/dnsmasq.conf
     line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1 # Listening interface\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h # Pool of IP addresses served via DHCP\ndomain=wlan # Local wireless DNS domain\naddress=/gw.wlan/10.0.90.1 # Alias for this router\n#VPNTV CONF END"
+    backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
   notify:
     - restart dnsmasq
