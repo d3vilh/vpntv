@@ -1,12 +1,35 @@
 ---
- - name: Make Wi-Fi module installation script executable
-   become: yes
-   file:
-     path: ./wifi-modules/8188eu-install.sh
-     mode: 0755
+- name: Check if module 8188eu is loaded
+  shell: lsmod | grep -q 8188eu
+  register: lsmod_result
+
+- name: Add blacklist entry for r8188eu
+  become: yes
+  command: echo 'blacklist r8188eu' | tee -a /etc/modprobe.d/realtek.conf
+  when: lsmod_result != 0
+
+- name: Unload the r8188eu module
+  become: yes
+  command: rmmod r8188eu
+  when: lsmod_result != 0
+  notify:
+    - restart networking
+
+- name: Make Wi-Fi module installation script executable
+  become: yes
+  when: lsmod_result != 0
+  file:
+    path: ./wifi-modules/8188eu-install.sh
+    mode: 0755 
     
- - name: Run Wi-Fi module installation script
-   become: yes
-   shell: ./wifi-modules/8188eu-install.sh
-   notify:
-     - restart etworking
+- name: Run Wi-Fi module installation script
+  become: yes
+  when: lsmod_result != 0
+  shell: ./wifi-modules/8188eu-install.sh
+  notify:
+    - restart networking
+
+- name: Check result of module loading
+  debug:
+    msg: "Module 8188eu already loaded. Nothing to do!"
+  when: lsmod_result == 0

@@ -28,7 +28,7 @@
     state: started
     enabled: yes
 
-- name: Check vpntv OpenVPN POSTROUTNG rules to UFW is already present
+- name: Check vpntv OpenVPN POSTROUTNG rules to ufw is already present
   become: yes
   lineinfile:
     state: absent
@@ -38,7 +38,7 @@
   changed_when: false # This just makes things look prettier in the logs
   register: ufw_openvpn_rules_check
 
-- name: Add OpenVPN POSTROUTNG rules to UFW
+- name: Add OpenVPN POSTROUTNG rules to ufw
   become: yes
   lineinfile:
     state: present
