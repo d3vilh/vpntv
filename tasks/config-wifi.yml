@@ -24,7 +24,17 @@
 - name: Unmask hostapd
   become: yes
   command: sudo systemctl unmask hostapd
-  when: hostapd_install.changed
+
+- name: Copy hostapd configuration file
+  become: yes
+  copy:
+    src: ./templates/hostapd.conf.yaml
+    dest: /etc/hostapd/hostapd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart hostapd
 
 - name: Start and enable ufw and hostapd services
   become: yes
@@ -65,7 +75,7 @@
     interface: wlan1
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
-    state: present
+    state: enabled
   with_items:
     - { port: 67, proto: udp }
     - { port: 68, proto: udp }
@@ -112,14 +122,3 @@
   when: dnsmasq_vpntv_rules_check.found == 0
   notify:
     - restart dnsmasq
-
-- name: Copy hostapd configuration file
-  become: yes
-  copy:
-    src: ./templates/hostapd.conf.yaml
-    dest: /etc/hostapd/hostapd.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - restart hostapd
