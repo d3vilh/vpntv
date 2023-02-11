@@ -72,14 +72,15 @@
   ufw:
     rule: allow
     direction: in
-    interface: wlan1
+    interface: "{{ item.interface }}"
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
     state: enabled
   with_items:
-    - { port: 67, proto: udp }
-    - { port: 68, proto: udp }
-    - { port: 53, proto: udp }
+    - { interface: wlan1, port: 67, proto: udp }
+    - { interface: wlan1, port: 68, proto: udp }
+    - { interface: wlan1, port: 53, proto: udp }
+    - { interface: wlan0, port: 68, proto: udp }
 
 - name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
@@ -99,8 +100,8 @@
     line: "\n# VPNTV DHCPCD RULES\ninterface=wlan1\nstatic ip_address=10.0.90.1/24\nnohook wpa_supplicant\n#VPNTV CONF END"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
-  notify:
-    - restart dhcpcd
+#  notify:
+#    - restart dhcpcd
 
 - name: Check vpntv dnsmasq configuration was already done
   become: yes
@@ -120,5 +121,5 @@
     line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1 # Listening interface\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h # Pool of IP addresses served via DHCP\ndomain=wlan # Local wireless DNS domain\naddress=/gw.wlan/10.0.90.1 # Alias for this router\n#VPNTV CONF END"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
-  notify:
-    - restart dnsmasq
+ # notify:
+ #   - restart dnsmasq

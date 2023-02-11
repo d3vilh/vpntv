@@ -27,8 +27,7 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
  ### Software installation steps
   1. Update your Raspberry Pi OS:
      ```shell
-     sudo apt-get update
-     sudo apt-get upgrade -y
+     sudo apt-get update && sudo apt-get upgrade -y
      ```
   2. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
