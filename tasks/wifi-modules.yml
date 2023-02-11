@@ -3,8 +3,9 @@
   become: yes
   shell: lsmod | grep -q 8188eu
   register: lsmod_result
+  ignore_errors: yes
 
-- name: r8188eu module was already blacklisted
+- name: Check if r8188eu module was already blacklisted
   become: yes
   lineinfile:
     state: absent
@@ -16,7 +17,7 @@
 
 - name: Add blacklist entry for r8188eu
   become: yes
-  command: echo 'blacklist r8188eu' | tee -a /etc/modprobe.d/realtek.conf
+  command: echo 'blacklist r8188eu' > /etc/modprobe.d/blacklist-r8188eu.conf
   when: blacklist_check.found == 0
 
 - name: Unload the r8188eu module

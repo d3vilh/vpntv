@@ -6,15 +6,25 @@
     - udhcpd
     - dnsmasq
     - ufw
+    - bridge-utils
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure udhcpd, dnsmasq, and ufw on Arch
-  become: yes
-  pacman:
-    name: 
-    - udhcpd
-    - dnsmasq
-    - ufw
+- name: Create bridge interface
+  shell: |
+    echo "auto br0" > /etc/network/interfaces.d/br0
+    echo "iface br0 inet dhcp" >> /etc/network/interfaces.d/br0
+    echo "    bridge_ports eth0 wlan0" >> /etc/network/interfaces.d/br0
+    echo "    bridge_stp off" >> /etc/network/interfaces.d/br0
+  changed_when: false
+
+- name: Configure dhcpcd for br0
+  lineinfile:
+    path: /etc/dhcpcd.conf
+    line: "interface br0\n    static ip_address=192.168.0.100/24\n    static routers=192.168.0.1\n    static domain_name_servers=192.168.0.1"
     state: present
-  when: ansible_facts.os_family == 'Arch'
+    validate: "dhcpcd -t"
+
+- name: Restart network interfaces
+  shell: ifdown eth0 wlan0 && ifup eth0 wlan0
+  changed_when: false

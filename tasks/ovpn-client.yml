@@ -1,48 +1,43 @@
 ---
-    - name: Debian OpenVPN-client Installation
-      become: yes
-      apt:
-        name: openvpn
-        state: present
-      when: ansible_facts.os_family == "Debian"
+- name: Debian OpenVPN-client Installation
+  become: yes
+  apt:
+    name: openvpn
+    state: present
+  when: ansible_facts.os_family == "Debian"
 
-    - name: Arch OpenVPN-client Installation
-      pacman:
-        name: openvpn
-        state: present
-      when: ansible_facts.os_family == "Arch"
+- name: Arch OpenVPN-client Installation
+  pacman:
+    name: openvpn
+    state: present
+  when: ansible_facts.os_family == "Arch"
 
-    - name: Check if OpenVPN client.conf exists
-      stat:
-        path: /etc/openvpn/client/client.conf
-      register: client_conf_stat
+- name: Copy client.conf to OpenVPN directory
+  copy:
+    src: ./client-ovpn/client.ovpn
+    dest: /etc/openvpn/client/client.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
 
-    - name: Copy client.conf to OpenVPN directory
-      copy:
-        src: ./client-ovpn/client.ovpn
-        dest: /etc/openvpn/client/client.conf
-        owner: root
-        group: root
-        mode: 0644
-        when: client_conf_stat.stat.exists == False
+- name: Copy openvpn@.service to systemd directory
+  become: yes
+  copy:
+    src: ./templates/openvpn@.service.yaml
+    dest: /etc/systemd/system/openvpn@.service
+    owner: root
+    group: root
+    mode: 0644
 
-    - name: Copy openvpn@.service to systemd directory
-      become: yes
-      copy:
-        src: ./templates/openvpn@.service.yaml
-        dest: /etc/systemd/system/openvpn@.service
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: Enable OpenVPN service
-      become: yes
-      systemd:
-        name: openvpn-client@client.service
-        state: started
-        enabled: yes
-        daemon_reload: yes
-      
-    - name: Reload systemd to use OpenVPN service configuration
-      become: yes
-      shell: systemctl daemon-reload
+- name: Enable OpenVPN service
+  become: yes
+  systemd:
+    name: openvpn-client@client.service
+    state: started
+    enabled: yes
+    daemon_reload: yes
+    
+- name: Reload systemd to use OpenVPN service configuration
+  become: yes
+  shell: systemctl daemon-reload

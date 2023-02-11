@@ -1,5 +1,5 @@
 ---
-- name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Debian
+- name: Install and configure udhcpd, hostapd, dnsmasq and ufw on Debian
   become: yes
   apt:
     name: 
@@ -10,7 +10,7 @@
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure udhcpd, hostapd, dnsmasq, and ufw on Arch
+- name: Install and configure udhcpd, hostapd, dnsmasq and ufw on Arch
   become: yes
   pacman:
     name: 
@@ -49,23 +49,19 @@
   notify:
     - restart ufw
 
-- name: Allow incoming traffic on wlan1 for port 67 (UDP)
+- name: Allow incoming traffic on wlan1 for specific ports
   become: yes
   ufw:
     rule: allow
     direction: in
     interface: wlan1
-    port: '67'
-    proto: udp
-    
-- name: Allow incoming traffic on wlan1 for port 53 (UDP)
-  become: yes
-  ufw:
-    rule: allow
-    direction: in
-    interface: wlan1
-    port: '53'
-    proto: udp
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+    state: present
+  with_items:
+    - { port: 67, proto: udp }
+    - { port: 68, proto: udp }
+    - { port: 53, proto: udp }
 
 - name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
