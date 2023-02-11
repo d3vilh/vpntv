@@ -1,9 +1,9 @@
 ---
-- name: Install and configure udhcpd, hostapd, dnsmasq and ufw on Debian
+- name: Install and configure udhcpd5, hostapd, dnsmasq and ufw on Debian
   become: yes
   apt:
     name: 
-    - udhcpd
+    - udhcpd5
     - dnsmasq
     - hostapd
     - ufw
@@ -14,7 +14,7 @@
   become: yes
   pacman:
     name: 
-    - udhcpd
+    - udhcpd5
     - dnsmasq
     - hostapd
     - ufw
