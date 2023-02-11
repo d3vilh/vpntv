@@ -21,12 +21,20 @@
     state: present
   when: ansible_facts.os_family == 'Arch'
 
-- name: Enable and start ufw
+- name: Unmask hostapd
   become: yes
-  service:
-    name: ufw
+  command: sudo systemctl unmask hostapd
+  when: hostapd_install.changed
+
+- name: Start and enable ufw and hostapd services
+  become: yes
+  systemctl:
+    name: "{{ item }}"
     state: started
     enabled: yes
+  loop:
+    - ufw
+    - hostapd
 
 - name: Check vpntv OpenVPN POSTROUTNG rules to ufw is already present
   become: yes
