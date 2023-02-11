@@ -22,12 +22,6 @@
   ignore_errors: yes
   notify:
     - restart networking
-
-- name: Make Wi-Fi module installation script executable
-  become: yes
-  file:
-    path: ./wifi-modules/8188eu-install.sh
-    mode: 0755 
     
 - name: Run Wi-Fi module installation script
   become: yes
@@ -35,8 +29,3 @@
   shell: ./wifi-modules/8188eu-install.sh
   notify:
     - restart networking
-
-- name: Check result of module loading
-  debug:
-    msg: "Module 8188eu already loaded. Nothing to do!"
-  when: lsmod_result == 0

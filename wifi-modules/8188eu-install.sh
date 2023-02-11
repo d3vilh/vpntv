@@ -8,7 +8,7 @@ if [ -z "$kernel" ]; then
     echo "Error: Could not determine kernel version"
     exit 1
 fi
-module_bin="./"$arch"/"$kernel"/8188eu.ko"
+module_bin="./wifi-modules/"$arch"/"$kernel"/8188eu.ko"
 module_dir="/lib/modules/$kernel/kernel/drivers/net/wireless"
 
 # install module
