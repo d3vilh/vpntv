@@ -11,7 +11,12 @@
         name: openvpn
         state: present
       when: ansible_facts.os_family == "Arch"
-        
+
+    - name: Check if client.conf exists
+      stat:
+        path: /etc/openvpn/client.conf
+      register: client_conf_stat
+
     - name: Copy client.conf to OpenVPN directory
       copy:
         src: ./client-ovpn/client.ovpn
@@ -19,6 +24,7 @@
         owner: root
         group: root
         mode: 0644
+        when: client_conf_stat.stat.exists == False
 
     - name: Copy openvpn@.service to systemd directory
       become: yes
