@@ -97,7 +97,7 @@
   lineinfile:
     state: present
     path: /etc/dhcpcd.conf
-    line: "\n# VPNTV DHCPCD RULES\ninterface=wlan1\nstatic ip_address=10.0.90.1/24\nnohook wpa_supplicant\n#VPNTV CONF END"
+    line: "\n# VPNTV DHCPCD RULES\ninterface=wlan1\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\n#VPNTV CONF END"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
 #  notify:
