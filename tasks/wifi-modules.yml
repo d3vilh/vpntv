@@ -5,25 +5,21 @@
   register: lsmod_result
   ignore_errors: yes
 
-- name: Check if r8188eu module was already blacklisted
+- name: Copy blacklist-r8188eu.conf to /etc/modprobe.d/
   become: yes
-  lineinfile:
-    state: absent
-    dest: /etc/modprobe.d/realtek.conf
-    regexp: "^blacklist r8188eu"
-  check_mode: true
-  changed_when: false # This just makes things look prettier in the logs
-  register: blacklist_check
-
-- name: Add blacklist entry for r8188eu
-  become: yes
-  command: echo 'blacklist r8188eu' > /etc/modprobe.d/blacklist-r8188eu.conf
-  when: blacklist_check.found == 0
+  become_user: root
+  copy:
+    src: ./templates/blacklist-r8188eu.conf.yaml
+    dest: /etc/modprobe.d/blacklist-r8188eu.conf
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Unload the r8188eu module
   become: yes
   command: rmmod r8188eu
   when: lsmod_result != 0
+  ignore_errors: yes
   notify:
     - restart networking
 
