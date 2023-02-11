@@ -25,14 +25,13 @@
 
 - name: Make Wi-Fi module installation script executable
   become: yes
-  when: lsmod_result != 0
   file:
     path: ./wifi-modules/8188eu-install.sh
     mode: 0755 
     
 - name: Run Wi-Fi module installation script
   become: yes
-  when: lsmod_result != 0
+  become_user: root
   shell: ./wifi-modules/8188eu-install.sh
   notify:
     - restart networking
