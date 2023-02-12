@@ -1,5 +1,5 @@
 # vpntv project
-**OpenVPN Client for any TV or TV-boxes**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project. Supports Wired (Ethernet cable) and Wireless (WiFi) connection types to your TV.
+**OpenVPN Client for any TV or TV-boxes**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project. Supports **Wired** (Ethernet cable) and **Wireless** (WiFi) connection types to your TV.
 
  <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="350" border="1" /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="350" border="1" /> 
 
@@ -57,7 +57,7 @@
 # !PLEASE DONT RUN THIS PROJECT YET!
 At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
 
-## Broken features or still in developement:
+## Broken or still in developement features:
 * Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
