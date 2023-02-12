@@ -7,14 +7,6 @@
  ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
  ### [Software Requirements](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
-### vpntv Installation Steps(!PLEASE DONT RUN THIS YET!)
-At the moment, I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. 
-
-### Still in developement or broken:
-* Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
-* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
-* Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
-
  ## vpntv installation steps
   1. Update your Raspberry Pi OS:
      ```shell
@@ -61,3 +53,11 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
       ```shell
       sudo reboot
       ``` 
+
+# !PLEASE DONT RUN THIS PROJECT YET!
+At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
+
+## Broken features or still in developement:
+* Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
+* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
+* Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
