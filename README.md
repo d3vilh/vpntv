@@ -15,11 +15,11 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
 ### Works fine:
 * OpenVPN Client installation and configuration
 * Wifi hostapd installation
-* Readme for [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration) ready
+* Wifi dongle modules installation [list of supported dongles](https://github.com/d3vilh/vpntv-hardware)
+* Readme for [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
 ### Still in developement or broken:
-* Wifi dongle modules installation **breaks RaspiOS** ಠ╭╮ಠ Work in progress (do not run it yet)
-* Ethernet connection is not develpped yet, its planned as next step after I'll fix WiFi modules
+* Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
 
