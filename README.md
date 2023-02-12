@@ -1,27 +1,21 @@
 # vpntv project
 **OpenVPN Client for any TV or TV-boxes**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project. Supports Wired (Ethernet cable) and Wireless (WiFi) connection types to your TV.
 
- <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="350" border="1" /> &nbsp; &nbsp; &nbsp; <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="350" border="1" /> 
+ <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="350" border="1" /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="350" border="1" /> 
 
 ## Requirements
  ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
  ### [Software Requirements](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
-## vpntv Installation Steps(!PLEASE DONT RUN THIS YET!)
+### vpntv Installation Steps(!PLEASE DONT RUN THIS YET!)
 At the moment, I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. 
-
-### Works fine:
-* OpenVPN Client installation and configuration
-* Wifi hostapd installation
-* Wifi dongle modules installation [list of supported dongles](https://github.com/d3vilh/vpntv-hardware)
-* Readme for [RaspiOS installation](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
 ### Still in developement or broken:
 * Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
 
- ## Software installation steps
+ ## vpntv installation steps
   1. Update your Raspberry Pi OS:
      ```shell
      sudo apt-get update && sudo apt-get upgrade -y
