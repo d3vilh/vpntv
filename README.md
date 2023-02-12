@@ -3,6 +3,8 @@
 
  <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="350" border="1" /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="350" border="1" /> 
 
+At the moment project supports WiFi connection only, but Ethernet connection functionality is already in development.
+
 ## Requirements
  ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
  ### [Software Requirements](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
