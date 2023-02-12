@@ -1,28 +1,33 @@
 ---
- - name: restart ufw
-   become: yes
-   ansible.builtin.service:
-     name: ufw
-     state: restarted
+- name: restart ufw
+  become: yes
+  ansible.builtin.service:
+    name: ufw
+    state: restarted
 
- - name: restart dhcpcd
-   become: yes
-   ansible.builtin.service:
-     name: dhcpcd
-     state: restarted
+- name: restart dhcpcd
+  become: yes
+  ansible.builtin.service:
+    name: dhcpcd
+    state: restarted
 
- - name: restart dnsmasq
-   become: yes
-   ansible.builtin.service:
-     name: dnsmasq
-     state: restarted
-     
- - name: restart hostapd
-   become: yes
-   ansible.builtin.service:
-     name: hostapd
-     state: restarted
+- name: restart dnsmasq
+  become: yes
+  ansible.builtin.service:
+    name: dnsmasq
+    state: restarted
 
- - name: restart networking
-   become: yes
-   command: /etc/init.d/networking restart
+- name: restart hostapd
+  become: yes
+  ansible.builtin.service:
+    name: hostapd
+    state: restarted
+
+- name: restart networking
+  become: yes
+  command: /etc/init.d/networking restart
+  
+- name: Reload sysctl
+  become: yes
+  shell: sysctl -p
+  listen: reload sysctl

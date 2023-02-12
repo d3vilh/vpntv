@@ -44,6 +44,15 @@
     - ufw
     - hostapd
 
+- name: Enable IP Forwarding
+  become: yes
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^#net.ipv4.ip_forward=1'
+    line: 'net.ipv4.ip_forward=1'
+  notify:
+    - reload sysctl
+
 - name: Check vpntv OpenVPN POSTROUTNG rules to ufw is already present
   become: yes
   lineinfile:
@@ -116,7 +125,7 @@
   lineinfile:
     state: present
     path: /etc/dnsmasq.conf
-    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1 # Listening interface\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h # Pool of IP addresses served via DHCP\ndomain=wlan # Local wireless DNS domain\naddress=/gw.wlan/10.0.90.1 # Alias for this router\n#VPNTV CONF END"
+    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
  # notify:
