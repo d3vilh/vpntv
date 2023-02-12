@@ -1,15 +1,14 @@
 # vpntv Project
 **OpenVPN Client for any TV or TV-box**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project.
 
-# Requirements
-- [**Raspberry Pi Zero W**](https://www.raspberrypi.org/products/raspberry-pi-zero-w/) or [**Raspberry Pi Zero W2**](https://www.raspberrypi.org/products/raspberry-pi-zero-w-2/) board, all with 512Mb RAM minimum.
-- [**Raspberry Pi 4**](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/), [**Raspberry Pi CM4**](https://www.raspberrypi.com/products/compute-module-4/?variant=raspberry-pi-cm4001000) **and** [**CM4 I/O Board**](https://www.raspberrypi.com/products/compute-module-4-io-board/) or [**Raspberry Pi 3**](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/) board, all with 2Gb RAM minimum.
-- [**Raspberry Pi Imager**](https://www.raspberrypi.com/software/) to simplify installation of Raspberry Pi OS Lite (32-bit or 64-bit).
-- [**Raspios Lite (32-bit)**](https://downloads.raspberrypi.org/raspios_lite_armhf/images/) or [**Raspios Lite (64-bit)**](https://downloads.raspberrypi.org/raspios_lite_arm64/images/) however 32-bit images is recommended for setup on Raspberry Pi Zero boards.
-- **16Gb SD Card**
-> You can run it on CM4 board with 4Gb eMMC EEPROM chip as well.
+    <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="Step1.0" width="600" border="1" /> 
+    <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="Step1.0" width="600" border="1" /> 
 
-# Installation (!PLEASE DONT RUN THIS YET!)
+## Requirements
+ ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
+ ### [Software Requirements](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
+
+## vpntv Installation Steps(!PLEASE DONT RUN THIS YET!)
 At the moment, I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. 
 
 ### Works fine:
@@ -23,8 +22,6 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
 
- ### HW components [preparation steps](https://github.com/d3vilh/vpntv-hardware)
- ### Raspberry Pi OS Lite [installation steps](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
  ### Software installation steps
   1. Update your Raspberry Pi OS:
      ```shell
