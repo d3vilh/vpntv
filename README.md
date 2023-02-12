@@ -1,8 +1,7 @@
 # vpntv Project
 **OpenVPN Client for any TV or TV-box**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project.
 
- <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="400" border="1" /> 
-<img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="400" border="1" /> 
+ <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="350" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="350" border="1" /> 
 
 ## Requirements
  ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
@@ -22,7 +21,7 @@ At the moment, I have only Raspberry Pi Zero W1 available for developement (all 
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
 
- ### Software installation steps
+ ## Software installation steps
   1. Update your Raspberry Pi OS:
      ```shell
      sudo apt-get update && sudo apt-get upgrade -y
