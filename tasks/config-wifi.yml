@@ -21,7 +21,7 @@
 
 - name: Unmask hostapd
   become: yes
-  command: sudo systemctl unmask hostapd
+  command: systemctl unmask hostapd
 
 - name: Copy hostapd configuration file
   become: yes
@@ -44,14 +44,19 @@
     - ufw
     - hostapd
 
-- name: Enable IP Forwarding
+- name: Enable IP Forwarding Configuration
   become: yes
   lineinfile:
     path: /etc/sysctl.conf
     regexp: '^#net.ipv4.ip_forward=1'
     line: 'net.ipv4.ip_forward=1'
-  notify:
-    - reload sysctl
+#  notify:
+#    - reload sysctl
+
+- name: Immedeately apply IP Forwarding
+  become: yes
+  shell: |
+    echo 1 > /proc/sys/net/ipv4/ip_forward
 
 - name: Check vpntv OpenVPN POSTROUTNG rules to ufw is already present
   become: yes
@@ -74,7 +79,7 @@
   notify:
     - restart ufw
 
-- name: Allow incoming traffic on wlan1 for specific ports
+- name: Allow incoming traffic on wlans for specific ports
   become: yes
   ufw:
     rule: allow
@@ -88,6 +93,7 @@
     - { interface: wlan1, port: 68, proto: udp }
     - { interface: wlan1, port: 53, proto: udp }
     - { interface: wlan0, port: 68, proto: udp }
+    - { interface: "*", port: 22, proto: tcp }
 
 - name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
@@ -104,11 +110,11 @@
   lineinfile:
     state: present
     path: /etc/dhcpcd.conf
-    line: "\n# VPNTV DHCPCD RULES\ninterface=wlan1\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan1\n#VPNTV CONF END"
+    line: "\n# VPNTV DHCPCD RULES\ninterface wlan1\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan1\n#VPNTV CONF END"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
-#  notify:
-#    - restart dhcpcd
+  notify:
+    - restart dhcpcd
 
 - name: Check vpntv dnsmasq configuration was already done
   become: yes
@@ -128,5 +134,5 @@
     line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
- # notify:
- #   - restart dnsmasq
+  notify:
+    - restart dnsmasq
