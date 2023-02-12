@@ -22,7 +22,8 @@ sudo ./8188eu-install.sh
 ```
 **Reinstall** the kernel headers if you get an error:
 ```
-sudo apt-get reinstall raspberrypi-kernel-headers
+sudo apt remove raspberrypi-kernel-headers;
+sudo apt-get install raspberrypi-kernel-headers
 ```
 
 The driver will be installed in `/usr/src/rtl8188eus-1.0` and the kernel module will be installed in `/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rtl8188eu`.
