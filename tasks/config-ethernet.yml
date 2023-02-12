@@ -1,9 +1,8 @@
 ---
-- name: Install and configure udhcpd, dnsmasq, and ufw on Debian
+- name: Install and configure dnsmasq, and ufw on Debian
   become: yes
   apt:
     name: 
-    - udhcpd
     - dnsmasq
     - ufw
     - bridge-utils
