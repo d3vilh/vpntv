@@ -44,14 +44,21 @@
     - ufw
     - hostapd
 
+- name: Allow incoming traffic on ssh
+  become: yes
+  ufw:
+    rule: allow
+    direction: in
+    port: 22
+    proto: tcp
+    state: enabled
+
 - name: Enable IP Forwarding Configuration
   become: yes
   lineinfile:
     path: /etc/sysctl.conf
     regexp: '^#net.ipv4.ip_forward=1'
     line: 'net.ipv4.ip_forward=1'
-#  notify:
-#    - reload sysctl
 
 - name: Immedeately apply IP Forwarding
   become: yes
@@ -65,7 +72,7 @@
     path: /etc/ufw/before.rules
     regexp: "^# VPNTV OPENVPN RULES"
   check_mode: true
-  changed_when: false # This just makes things look prettier in the logs
+  changed_when: false
   register: ufw_openvpn_rules_check
 
 - name: Add OpenVPN POSTROUTNG rules to ufw
@@ -93,7 +100,6 @@
     - { interface: wlan1, port: 68, proto: udp }
     - { interface: wlan1, port: 53, proto: udp }
     - { interface: wlan0, port: 68, proto: udp }
-    - { interface: "*", port: 22, proto: tcp }
 
 - name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
@@ -123,7 +129,7 @@
     dest: /etc/dnsmasq.conf
     regexp: "^# VPNTV DNSMASQ RULES"
   check_mode: true
-  changed_when: false # This just makes things look prettier in the logs
+  changed_when: false
   register: dnsmasq_vpntv_rules_check
 
 - name: Add vpntv dnsmasq configuration
