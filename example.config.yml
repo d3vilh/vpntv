@@ -1,7 +1,6 @@
 ---
 # Location where configuration files will be stored.
 config_dir: '~'
-
 #    _____ _____ _____                 
 #   |  |  |  _  |   | |                
 #   |  |  |   __| | | |                
@@ -15,9 +14,11 @@ ovpnclient_enable: true             # You can "false" this line if you already h
 #   |_____|_|__|  |_| 
 # Using USB WiFi card dongle as AP for TV or TV-box (true/false).
 wifi_enable: true
+wifi_mod_enable: true              # Install custom WiFi modules
 wifi_ssid: "vpntv"                 # WiFi network name to connect to.
 wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
-wifi_interface: "wlan1"            # You can change it to "wlan0" if you desired.
+wifi_interface: "wlan1"            # WiFi interface (don't change without purpose)
+wifi_channel: "7"                  # WiFi channel (don't change without purpose)
 
 #    _____ _   _                   _   
 #   |   __| |_| |_ ___ ___ ___ ___| |_ 

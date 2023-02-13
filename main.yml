@@ -33,7 +33,7 @@
 
     - name: Installing WiFi card modules
       ansible.builtin.import_tasks: tasks/wifi-modules.yml
-      when: wifi_enable
+      when: wifi_mod_enable
 
     - name: Configuring second wifi card as AP for TV
       ansible.builtin.import_tasks: tasks/config-wifi.yml
