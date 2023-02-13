@@ -9,21 +9,34 @@
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Create bridge interface
-  shell: |
-    echo "auto br0" > /etc/network/interfaces.d/br0
-    echo "iface br0 inet dhcp" >> /etc/network/interfaces.d/br0
-    echo "    bridge_ports eth0 wlan0" >> /etc/network/interfaces.d/br0
-    echo "    bridge_stp off" >> /etc/network/interfaces.d/br0
-  changed_when: false
-
-- name: Configure dhcpcd for br0
+- name: Check vpntv dhcpcd for br0 configuration was already done
+  become: yes
   lineinfile:
-    path: /etc/dhcpcd.conf
-    line: "interface br0\n    static ip_address=192.168.0.100/24\n    static routers=192.168.0.1\n    static domain_name_servers=192.168.0.1"
-    state: present
-    validate: "dhcpcd -t"
-
-- name: Restart network interfaces
-  shell: ifdown eth0 wlan0 && ifup eth0 wlan0
+    state: absent
+    dest: /etc/dhcpcd.conf
+    regexp: "^# VPNTV BRIDGE RULES"
+  check_mode: true
   changed_when: false
+  register: vpntv_dhcpcd_br0_rules_check
+
+- name: Add vpntv dnsmasq configuration
+  become: yes
+  lineinfile:
+    state: present
+    path: /etc/dhcpcd.conf
+    line: "\n# VPNTV BRIDGE RULES\ninterface br0\n    static ip_address=192.168.0.100/24\n    static routers=192.168.0.1\n    static domain_name_servers=192.168.0.1\n#VPNTV BRIDGE CONF END"
+    backup: yes
+  when: vpntv_dhcpcd_br0_rules_check.found == 0
+  notify:
+    - restart dnsmasq
+
+- name: Copy bridge interface configuration file
+  become: yes
+  copy:
+    src: ./templates/bridge-br0.yaml
+    dest: /etc/network/interfaces.d/br0
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart networking

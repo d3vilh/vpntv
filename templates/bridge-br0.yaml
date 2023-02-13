@@ -1,0 +1,4 @@
+auto br0
+iface br0 inet dhcp
+    bridge_ports eth0 wlan0
+    bridge_stp off

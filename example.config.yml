@@ -14,7 +14,7 @@ ovpnclient_enable: true             # You can "false" this line if you already h
 #   |_____|_|__|  |_| 
 # Using USB WiFi card dongle as AP for TV or TV-box (true/false).
 wifi_enable: true
-wifi_mod_enable: true              # Install custom WiFi modules
+wifi_mod_enable: true              # Install custom WiFi modules (don't change without purpose)
 wifi_ssid: "vpntv"                 # WiFi network name to connect to.
 wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
 wifi_interface: "wlan1"            # WiFi interface (don't change without purpose)
