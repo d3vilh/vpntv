@@ -40,10 +40,10 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
       <details>
          <summary>
-           ### List of options
+           **List of available options**
          </summary>
 
-         * **ovpnclient_enable** - enable/disable OpenVPN client service
+         * **ovpnclient_enable** - enable/disable OpenVPN client service. You need to have OpenVPN client configuration file in `client-ovpn` directory (see next installation step).
   
          * **wifi_enable** - enable/disable VT over WiFi connection. you need to setup WiFi network name and password. Used only if you have WiFi dongle connected to your Raspberry Pi.
   
@@ -53,18 +53,18 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
       </details>
 
       > **Note**:  You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
-   
-  8 Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
 
-  1. Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+  8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
    
-  2.  Run installation playbook:
+  9.  Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
+   
+  10.  Run installation playbook:
       ```shell
       ansible-playbook main.yml
       ```
       > **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
 
-  3.  Reboot your Pi:
+  11. Reboot your Pi:
       ```shell
       sudo reboot
       ``` 
