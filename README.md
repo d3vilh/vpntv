@@ -62,6 +62,8 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
       ```shell
       ansible-playbook main.yml
       ```
+      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
+      
       > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
 
   11. Reboot your Pi:
