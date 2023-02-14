@@ -40,15 +40,16 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
       <details>
          <summary>
-            List of options
+           ### List of options
          </summary>
-         * ovpnclient_enable
+
+         * **ovpnclient_enable** - enable/disable OpenVPN client service
   
-         * wifi_enable
+         * **wifi_enable** - enable/disable VT over WiFi connection. you need to setup WiFi network name and password. Used only if you have WiFi dongle connected to your Raspberry Pi.
   
-         * wifi_mod_enable
+         * **wifi_mod_enable** - enable/disable custom WiFi modules installation. You need to enable it if your WiFi dongle is does not support AP mode by Raspberry Pi OS by default.
   
-         * ethernet_enable
+         * **ethernet_enable** - enable/disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi.
       </details>
 
       > **Note**:  You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
