@@ -52,7 +52,7 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
          * **ethernet_enable** - enable/disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi.
       </details>
 
-      > **Note**:  You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
+      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
 
   8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
    
@@ -62,17 +62,18 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
       ```shell
       ansible-playbook main.yml
       ```
-      > **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
+      > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
 
   11. Reboot your Pi:
       ```shell
       sudo reboot
       ``` 
 
-# !PLEASE DONT RUN THIS PROJECT YET!
+# Active development notification
 At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
 
 ## Broken or still in developement features:
+* WiFi AP mode is working fine, VPN client connects, DNS resolution works like a charm, but for some reason I can't access internet from my TV. I'm still investigating this issue.
 * Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
