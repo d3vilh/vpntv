@@ -62,13 +62,12 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
       ```shell
       ansible-playbook main.yml
       ```
-
       > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
 
   11. Reboot your Pi:
       ```shell
       sudo reboot
-      ``` 
+      ```
 
 # Active development notification
 At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
