@@ -59,17 +59,14 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
   9.  Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
 
   10.  Run installation playbook:
-      ```shell
+   ```shell
       ansible-playbook main.yml
-      ```
-      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
-      
-      > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
-
-  11. Reboot your Pi:
-      ```shell
+   ```
+   > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
+  11.  Reboot your Pi:
+   ```shell
       sudo reboot
-      ```
+   ```
 
 # Active development notification
 At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
