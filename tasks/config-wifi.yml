@@ -23,11 +23,11 @@
   become: yes
   command: systemctl unmask hostapd
 
-- name: Copy hostapd configuration file
-  become: yes
-  copy:
+- name: Copy templated hostapd config into a place.
+  become: true
+  ansible.builtin.template:
     src: ./templates/hostapd.conf.yaml
-    dest: /etc/hostapd/hostapd.conf
+    dest: "/etc/hostapd/hostapd.conf"
     owner: root
     group: root
     mode: 0644
