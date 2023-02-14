@@ -40,7 +40,7 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
      **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
       <details>
          <summary>
-           **List of available options**
+           List of available options
          </summary>
 
          * **ovpnclient_enable** - enable/disable OpenVPN client service. You need to have OpenVPN client configuration file in `client-ovpn` directory (see next installation step).
