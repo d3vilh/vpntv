@@ -24,7 +24,7 @@
   command: systemctl unmask hostapd
 
 - name: Copy templated hostapd config into a place.
-  become: true
+  become: yes
   ansible.builtin.template:
     src: ./templates/hostapd.conf.yaml
     dest: "/etc/hostapd/hostapd.conf"
