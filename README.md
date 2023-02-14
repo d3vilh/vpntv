@@ -57,11 +57,12 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
   8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
    
   9.  Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-   
+
   10.  Run installation playbook:
       ```shell
       ansible-playbook main.yml
       ```
+
       > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
 
   11. Reboot your Pi:
