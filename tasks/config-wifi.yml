@@ -86,7 +86,7 @@
   notify:
     - restart ufw
 
-- name: Allow incoming traffic on wlans for specific ports
+- name: Allow incoming traffic for specific ports DNS,DHCP,HTTPS,ICMP,VPN
   become: yes
   ufw:
     rule: allow
@@ -96,10 +96,23 @@
     proto: "{{ item.proto }}"
     state: enabled
   with_items:
-    - { interface: wlan1, port: 67, proto: udp }
-    - { interface: wlan1, port: 68, proto: udp }
-    - { interface: wlan1, port: 53, proto: udp }
-    - { interface: wlan0, port: 68, proto: udp }
+    - { interface: any, port: 67, proto: udp }
+    - { interface: any, port: 68, proto: udp }
+    - { interface: any, port: 53, proto: udp }
+    - { interface: any, port: 5353, proto: udp }
+    - { interface: any, port: 80, proto: tcp }
+    - { interface: any, port: 443, proto: tcp }
+    - { interface: any, port: 443, proto: udp }
+    - { interface: any, proto: icmp }
+    - { interface: any, port: "{{ external_vpn_port }}", proto: tcp }
+
+- name: Allow outgoing traffic for any intrfaces
+  become: yes
+  ufw:
+    rule: allow
+    direction: out
+    interface: any
+    state: enabled
 
 - name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
