@@ -1,5 +1,5 @@
 ---
-- name: Install and configure udhcpd, hostapd, dnsmasq and ufw on Debian
+- name: Install and configure dnsmasq, hostapd and ufw on Debian
   become: yes
   apt:
     name: 
@@ -9,7 +9,7 @@
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure udhcpd, hostapd, dnsmasq and ufw on Arch
+- name: Install and configure dnsmasq, hostapd and ufw on Arch
   become: yes
   pacman:
     name: 
@@ -49,7 +49,7 @@
   ufw:
     rule: allow
     direction: in
-    port: 22
+    port: "22"
     proto: tcp
     state: enabled
 
@@ -104,7 +104,7 @@
     - { interface: any, port: 443, proto: tcp }
     - { interface: any, port: 443, proto: udp }
     - { interface: any, proto: icmp }
-    - { interface: any, port: "{{ external_vpn_port }}", proto: tcp }
+    - { interface: any, port: "{{ openvpn_external_port }}", proto: tcp }
 
 - name: Allow outgoing traffic for any intrfaces
   become: yes

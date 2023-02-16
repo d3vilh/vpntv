@@ -30,7 +30,7 @@
     group: root
     mode: 0644
 
-- name: Enable OpenVPN service
+- name: Enable OpenVPN service as openvpn-client@client.service
   become: yes
   systemd:
     name: openvpn-client@client.service
@@ -38,6 +38,6 @@
     enabled: yes
     daemon_reload: yes
     
-- name: Reload systemd to use OpenVPN service configuration
+- name: Reload systemd to use new OpenVPN service configuration
   become: yes
   shell: systemctl daemon-reload
