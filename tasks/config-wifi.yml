@@ -86,7 +86,7 @@
   notify:
     - restart ufw
 
-- name: Allow incoming traffic for specific ports DNS,DHCP,HTTPS,ICMP,VPN
+- name: Allow incoming traffic for specific ports DNS,DHCP,HTTPS,ICMP,OpenVPN
   become: yes
   ufw:
     rule: allow
