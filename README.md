@@ -14,6 +14,8 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
      ```shell
      sudo apt-get update && sudo apt-get upgrade -y
      ```
+      > **Note**: In case official repositories are not available: `echo "deb http://ftp.agdsn.de/pub/mirrors/raspbian/raspbian/ buster main" | sudo tee -a /etc/apt/sources` then `sudo apt-get update && sudo apt-get upgrade -y`
+
   2. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):
      ```shell 
      sudo apt-get install -y git ansible
