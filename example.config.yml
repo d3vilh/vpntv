@@ -7,7 +7,7 @@ config_dir: '~'
 #    \___/|__|  |_|___| 
 # Enabling OpenVPN client (true/false).
 ovpnclient_enable: true             # You can "false" this line if you already have configured OpenVPN client.
-openvpn_external_port: 1194         # OpenVPN client external port (don't change without purpose)
+openvpn_external_port: "1194"         # OpenVPN client external port (don't change without purpose)
 
 #    _ _ _ _ _____ _                   
 #   | | | |_|   __|_|                  
