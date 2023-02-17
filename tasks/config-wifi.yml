@@ -86,7 +86,7 @@
   notify:
     - restart ufw
 
-- name: Allow in traffic for external OpenVPN {{ openvpn_external_port}} port
+- name: Allow incoming traffic for external OpenVPN {{ openvpn_external_port}} port
   become: yes
   ufw:
     rule: allow
@@ -110,7 +110,7 @@
     - { interface: any, port: 68, proto: udp }
     - { interface: any, port: 53, proto: udp }
     - { interface: any, port: 5353, proto: udp }
-    - { interface: any, port: 80, proto: tcp }
+  #  - { interface: any, port: 80, proto: tcp }
     - { interface: any, port: 443, proto: tcp }
     - { interface: any, port: 443, proto: udp }
 

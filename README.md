@@ -74,7 +74,7 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
 At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
 
 ## Broken or still in developement features:
-* WiFi AP mode is working fine, VPN client connects, DNS resolution works like a charm, but for some reason I can't access internet from my TV. I'm still investigating this issue.
+* Everything is working fine with WiFi connection, yay!
 * Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
 * Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
