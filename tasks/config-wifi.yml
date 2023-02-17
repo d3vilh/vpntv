@@ -72,7 +72,7 @@
     path: /etc/ufw/before.rules
     regexp: "^# VPNTV OPENVPN RULES"
   check_mode: true
-  changed_when: false
+  changed_when: false  # This just makes things look prettier in the logs
   register: ufw_openvpn_rules_check
 
 - name: Add OpenVPN POSTROUTNG rules to ufw
@@ -113,7 +113,6 @@
     - { interface: any, port: 80, proto: tcp }
     - { interface: any, port: 443, proto: tcp }
     - { interface: any, port: 443, proto: udp }
-    - { interface: any, proto: icmp }
 
 - name: Allow outgoing traffic for any intrfaces
   become: yes
@@ -130,7 +129,7 @@
     dest: /etc/dhcpcd.conf
     regexp: "^# VPNTV DHCPCD RULES"
   check_mode: true
-  changed_when: false # This just makes things look prettier in the logs
+  changed_when: false
   register: dhcpcd_vpntv_rules_check
 
 - name: Add vpntv dhcpcd static IP configuration
