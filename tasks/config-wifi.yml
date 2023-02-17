@@ -86,7 +86,17 @@
   notify:
     - restart ufw
 
-- name: Allow incoming traffic for specific ports DNS, DHCP, HTTPS, ICMP, OpenVPN
+- name: Allow in traffic for external OpenVPN {{ openvpn_external_port}} port
+  become: yes
+  ufw:
+    rule: allow
+    direction: in
+    interface: "any"
+    port: "{{ openvpn_external_port }}"
+    proto: "tcp"
+    state: enabled
+
+- name: Allow incoming traffic for specific ports DNS, DHCP and HTTPS
   become: yes
   ufw:
     rule: allow
@@ -104,7 +114,6 @@
     - { interface: any, port: 443, proto: tcp }
     - { interface: any, port: 443, proto: udp }
     - { interface: any, proto: icmp }
-    - { interface: any, port: "{{ openvpn_external_port }}", proto: tcp }
 
 - name: Allow outgoing traffic for any intrfaces
   become: yes
