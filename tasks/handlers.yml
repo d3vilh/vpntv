@@ -1,10 +1,4 @@
 ---
-- name: restart ufw
-  become: yes
-  ansible.builtin.service:
-    name: ufw
-    state: restarted
-
 - name: restart dhcpcd
   become: yes
   ansible.builtin.service:
@@ -33,6 +27,5 @@
   listen: reload sysctl
 
 - name: Reload iptables rules
-  service:
-    name: netfilter-persistent
-    state: reloaded
+  become: yes
+  shell: iptables -F && iptables-restore < /etc/iptables/rules.v4

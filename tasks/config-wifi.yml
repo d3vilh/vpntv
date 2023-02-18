@@ -55,81 +55,25 @@
   shell: |
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-#- name: Copy templated iptables rules into a place.
-#  become: yes
-#  ansible.builtin.template:
-#    src: ./templates/ipt-rules.v4.yaml
-#    dest: "/etc/iptables/rules.v4"
-#    owner: root
-#    group: root
-#    mode: 0644
-#  notify:
-#    - Reload iptables rules
+- name: Check vpntv wifi iptables rules were already applied
+  become: yes
+  lineinfile:
+    state: absent
+    dest: /etc/iptables/rules.v4
+    regexp: "^# VPNTV OPENVPN RULES"
+  check_mode: true
+  changed_when: false
+  register: iptables_vpntv_rules_check
 
-- name: Check nat POSTROUTING rule
-  become: true
-  iptables:
-    table: nat
-    chain: POSTROUTING
-    out_interface: tun0
-    jump: MASQUERADE
-  register: postrouting_rule_check
-
-- name: Check FORWARD rule 1
-  become: true    
-  iptables:
-    chain: FORWARD
-    in_interface: tun0
-    out_interface: wlan0
-    protocol: all
-    state: RELATED,ESTABLISHED
-    jump: ACCEPT
-  register: forward_rule_1_check
-
-- name: Check FORWARD rule 2
-  become: true
-  iptables:
-    chain: FORWARD
-    in_interface: wlan0
-    out_interface: tun0
-    protocol: all
-    jump: ACCEPT
-  register: forward_rule_2_check
-
-- name: Add nat POSTROUTING rule
-  become: true
-  iptables:
-    table: nat
-    chain: POSTROUTING
-    out_interface: tun0
-    jump: MASQUERADE
-  when: not postrouting_rule_check.found
-
-- name: Add FORWARD rule 1
-  become: true
-  iptables:
-    chain: FORWARD
-    in_interface: tun0
-    out_interface: wlan0
-    protocol: all
-    state: RELATED,ESTABLISHED
-    jump: ACCEPT
-  when: not forward_rule_1_check.found
-
-- name: Add FORWARD rule 2
-  become: true
-  iptables:
-    chain: FORWARD
-    in_interface: wlan0
-    out_interface: tun0
-    protocol: all
-    jump: ACCEPT
-  when: not forward_rule_2_check.found
-  
-- name: Save iptables rules
-  become: true
-  command: /usr/sbin/iptables-save > /etc/iptables/rules.v4
-  when: not postrouting_rule_check.found or not forward_rule_1_check.found or not forward_rule_2_check.found
+- name: Copy templated iptables persistent rules into a place.
+  become: yes
+  ansible.builtin.template:
+    src: ./templates/ipt-rules.v4.yaml
+    dest: "/etc/iptables/rules.v4"
+    owner: root
+    group: root
+    mode: 0644
+  when: iptables_vpntv_rules_check.found == 0
   notify:
     - Reload iptables rules
 
