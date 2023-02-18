@@ -31,3 +31,8 @@
   become: yes
   shell: sysctl -p
   listen: reload sysctl
+
+- name: Reload iptables rules
+  service:
+    name: netfilter-persistent
+    state: reloaded

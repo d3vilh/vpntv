@@ -1,23 +1,21 @@
 ---
-- name: Install and configure dnsmasq, hostapd and iptables-persistent on Debian
+- name: Install and configure dnsmasq, hostapd and ufw on Debian
   become: yes
   apt:
     name: 
     - dnsmasq
     - hostapd
-    - iptables-persistent
-    - netfilter-persistent
+    - ufw
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure dnsmasq, hostapd and iptables-persistent on Arch
+- name: Install and configure dnsmasq, hostapd and ufw on Arch
   become: yes
   pacman:
     name: 
     - dnsmasq
     - hostapd
-    - iptables-persistent
-    - netfilter-persistent
+    - ufw
     state: present
   when: ansible_facts.os_family == 'Arch'
 
@@ -36,12 +34,24 @@
   notify:
     - restart hostapd
 
-- name: Start and enable hostapd service
+- name: Start and enable ufw and hostapd services
   become: yes
   systemd:
-    name: hostapd
+    name: "{{ item }}"
     state: started
     enabled: yes
+  loop:
+    - ufw
+    - hostapd
+
+- name: Allow incoming traffic on ssh
+  become: yes
+  ufw:
+    rule: allow
+    direction: in
+    port: "22"
+    proto: tcp
+    state: enabled
 
 - name: Enable IP Forwarding Configuration
   become: yes
@@ -55,83 +65,62 @@
   shell: |
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-#- name: Copy templated iptables rules into a place.
-#  become: yes
-#  ansible.builtin.template:
-#    src: ./templates/ipt-rules.v4.yaml
-#    dest: "/etc/iptables/rules.v4"
-#    owner: root
-#    group: root
-#    mode: 0644
-#  notify:
-#    - Reload iptables rules
+- name: Check vpntv OpenVPN POSTROUTNG rules to ufw is already present
+  become: yes
+  lineinfile:
+    state: absent
+    path: /etc/ufw/before.rules
+    regexp: "^# VPNTV OPENVPN RULES"
+  check_mode: true
+  changed_when: false  # This just makes things look prettier in the logs
+  register: ufw_openvpn_rules_check
 
-- name: Check nat POSTROUTING rule
-  become: true
-  iptables:
-    table: nat
-    chain: POSTROUTING
-    out_interface: tun0
-    jump: MASQUERADE
-  register: postrouting_rule_check
-
-- name: Check FORWARD rule 1
-  become: true    
-  iptables:
-    chain: FORWARD
-    in_interface: tun0
-    out_interface: wlan0
-    protocol: all
-    state: RELATED,ESTABLISHED
-    jump: ACCEPT
-  register: forward_rule_1_check
-
-- name: Check FORWARD rule 2
-  become: true
-  iptables:
-    chain: FORWARD
-    in_interface: wlan0
-    out_interface: tun0
-    protocol: all
-    jump: ACCEPT
-  register: forward_rule_2_check
-
-- name: Add nat POSTROUTING rule
-  become: true
-  iptables:
-    table: nat
-    chain: POSTROUTING
-    out_interface: tun0
-    jump: MASQUERADE
-  when: not postrouting_rule_check.found
-
-- name: Add FORWARD rule 1
-  become: true
-  iptables:
-    chain: FORWARD
-    in_interface: tun0
-    out_interface: wlan0
-    protocol: all
-    state: RELATED,ESTABLISHED
-    jump: ACCEPT
-  when: not forward_rule_1_check.found
-
-- name: Add FORWARD rule 2
-  become: true
-  iptables:
-    chain: FORWARD
-    in_interface: wlan0
-    out_interface: tun0
-    protocol: all
-    jump: ACCEPT
-  when: not forward_rule_2_check.found
-  
-- name: Save iptables rules
-  become: true
-  command: /usr/sbin/iptables-save > /etc/iptables/rules.v4
-  when: not postrouting_rule_check.found or not forward_rule_1_check.found or not forward_rule_2_check.found
+- name: Add OpenVPN POSTROUTNG rules to ufw
+  become: yes
+  lineinfile:
+    state: present
+    path: /etc/ufw/before.rules
+    line: "\n# VPNTV OPENVPN RULES\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s 10.0.90.0/24 -o wlan0 -j MASQUERADE\nCOMMIT\n#VPNTV RULES END"
+    backup: yes
+  when: ufw_openvpn_rules_check.found == 0
   notify:
-    - Reload iptables rules
+    - restart ufw
+
+- name: Allow incoming traffic for external OpenVPN {{ openvpn_external_port}} port
+  become: yes
+  ufw:
+    rule: allow
+    direction: in
+    interface: "any"
+    port: "{{ openvpn_external_port }}"
+    proto: "tcp"
+    state: enabled
+
+- name: Allow incoming traffic for specific ports DNS, DHCP and HTTPS
+  become: yes
+  ufw:
+    rule: allow
+    direction: in
+    interface: "{{ item.interface }}"
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+    state: enabled
+  with_items:
+    - { interface: any, port: 67, proto: udp }
+    - { interface: any, port: 68, proto: udp }
+    - { interface: any, port: 53, proto: udp }
+    - { interface: any, port: 5353, proto: udp }
+  #  - { interface: any, port: 80, proto: tcp }
+    - { interface: any, port: 443, proto: tcp }
+    - { interface: any, port: 443, proto: udp }
+
+- name: Allow outgoing traffic for any intrfaces
+  become: yes
+  ufw:
+    rule: allow
+    direction: out
+    interface: any
+    state: enabled
 
 - name: Check vpntv dhcpcd static IP configuration was already done
   become: yes
