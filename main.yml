@@ -37,10 +37,10 @@
 
     - name: Configuring second wifi card as AP for TV
       ansible.builtin.import_tasks: tasks/config-wifi.yml
-      when: wifi_enable
+      when: wifi2wifi_enable
 
 # This Part not completed yet:
 #    - name: Configuring Ethernet interface as direct connection to TV
 #      ansible.builtin.import_tasks: tasks/config-ethernet.yml
-#      when: ethernet_enable
+#      when: wifi2ethernet_enable
     
