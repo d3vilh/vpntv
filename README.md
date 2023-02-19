@@ -71,10 +71,10 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
    ```
 
 # Active development notification
-At the moment it is **in active developement**! I have only Raspberry Pi Zero W1 available for developement (all the rest boards are busy with ongoing home automations), that is why it takes a lot of time to test and fix all the issues. Nevertheless **Testers are welcome!**
+At the moment it is **in active developement** and **Testers are welcome!**
 
-## Broken or still in developement features:
+## Development status:
 * Everything is working fine with WiFi connection, yay!
 * Ethernet connection is not develpped yet, its planned as next step after I'll got free Raspberry Pi 4 board.
-* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in stailed progress.
+* Documentation for [HW configuration](https://github.com/d3vilh/vpntv-hardware) in progress.
 * Developement of BeeGo based web-ui for client Certs upload is planned but dev is not started yet
