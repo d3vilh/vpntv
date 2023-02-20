@@ -1,47 +1,23 @@
 ---
-- name: Install and configure dnsmasq, hostapd and iptables-persistent on Debian
+- name: Install and configure dnsmasq and iptables-persistent on Debian
   become: yes
   apt:
     name: 
     - dnsmasq
-    - hostapd
     - iptables-persistent
     - netfilter-persistent
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure dnsmasq, hostapd and iptables-persistent on Arch
+- name: Install and configure dnsmasq and iptables-persistent on Arch
   become: yes
   pacman:
     name: 
     - dnsmasq
-    - hostapd
     - iptables-persistent
     - netfilter-persistent
     state: present
   when: ansible_facts.os_family == 'Arch'
-
-- name: Unmask hostapd
-  become: yes
-  command: systemctl unmask hostapd
-
-- name: Copy templated hostapd config into a place.
-  become: yes
-  ansible.builtin.template:
-    src: ./templates/hostapd.conf.yaml
-    dest: "/etc/hostapd/hostapd.conf"
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - restart hostapd
-
-- name: Start and enable hostapd service
-  become: yes
-  systemd:
-    name: hostapd
-    state: started
-    enabled: yes
 
 - name: Enable IP Forwarding Configuration
   become: yes
@@ -68,7 +44,7 @@
 - name: Copy templated iptables persistent rules into a place.
   become: yes
   ansible.builtin.template:
-    src: ./templates/ipt-rules.v4.yaml
+    src: ./templates/w2e-ipt-rules.v4.yaml
     dest: "/etc/iptables/rules.v4"
     owner: root
     group: root
@@ -92,7 +68,7 @@
   lineinfile:
     state: present
     path: /etc/dhcpcd.conf
-    line: "\n# VPNTV DHCPCD RULES\ninterface wlan1\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan1\n#VPNTV CONF END"
+    line: "\n# VPNTV DHCPCD RULES\ninterface eth0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces eth0\n#VPNTV CONF END"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
   notify:
@@ -113,7 +89,7 @@
   lineinfile:
     state: present
     path: /etc/dnsmasq.conf
-    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan1\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END"
+    line: "\n# VPNTV DNSMASQ RULES\ninterface=eth0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
   notify:

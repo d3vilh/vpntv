@@ -15,7 +15,7 @@ openvpn_external_port: "1194"      # OpenVPN client external port (don't change 
 #   |_____|_|__|  |_|  |___|  |_____|_|__|  |_|
 # Wireless Connection Type 1. 
 # Connecting TV to VPNTV's new WiFi network while VPNTV itself connected to your home WiFi network.
-wifi2wifi_enable: true             # Set true or false
+wifi2wifi_enable: false             # Set true or false
 wifi_mod_enable: false             # To install custom RTL WiFi modules (don't change without purpose)
 wifi_ssid: "vpntv"                 # WiFi network name to connect to.
 wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"

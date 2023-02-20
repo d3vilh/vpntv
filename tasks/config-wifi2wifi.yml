@@ -68,7 +68,7 @@
 - name: Copy templated iptables persistent rules into a place.
   become: yes
   ansible.builtin.template:
-    src: ./templates/ipt-rules.v4.yaml
+    src: ./templates/w2w-ipt-rules.v4.yaml
     dest: "/etc/iptables/rules.v4"
     owner: root
     group: root
