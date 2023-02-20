@@ -1,7 +1,7 @@
 # vpntv project
 **OpenVPN Client for any TV or TV-boxes**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project. Supports **Wired** (Ethernet cable) and **Wireless** (WiFi) connection types to your TV.
 
-<img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="305" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection type 1" width="300" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired2.png" alt="wired connection type 2" width="305" border="1" />
+<img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="255" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection type 1" width="250" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired2.png" alt="wired connection type 2" width="255" border="1" />
 
 At the moment project supports WiFi connection only, but Ethernet connection functionality is already in development.
 
