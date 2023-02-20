@@ -6,18 +6,16 @@ config_dir: '~'
 #   |  |  |   __| | | |                
 #    \___/|__|  |_|___| 
 # Enabling OpenVPN client (true/false).
-ovpnclient_enable: true             # You can "false" this line if you already have configured OpenVPN client.
-openvpn_external_port: "1194"         # OpenVPN client external port (don't change without purpose)
-
-
+ovpnclient_enable: true            # Set true or false. You can "false" this line if you already have configured OpenVPN client.
+openvpn_external_port: "1194"      # OpenVPN client external port (don't change without purpose)
                                                              
 #    _ _ _ _ _____ _    ___    _ _ _ _ _____ _                   
 #   | | | |_|   __|_|  |_  |  | | | |_|   __|_|                  
 #   | | | | |   __| |  |  _|  | | | | |   __| |                  
 #   |_____|_|__|  |_|  |___|  |_____|_|__|  |_|
-# Connecting TV to VPNTV own WiFi network while VPNTV connected to WiFi router over your home WiFi.
-wifi2wifi_enable: true
-wifi_mod_enable: false             # Install custom WiFi modules (don't change without purpose)
+# WiFi bridge. Connecting TV to VPNTV's new WiFi network while VPNTV itself connected to your home WiFi network.
+wifi2wifi_enable: true             # Set true or false
+wifi_mod_enable: false             # To install custom RTL WiFi modules (don't change without purpose)
 wifi_ssid: "vpntv"                 # WiFi network name to connect to.
 wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
 wifi_interface: "wlan1"            # WiFi interface (don't change without purpose)
@@ -27,13 +25,18 @@ wifi_channel: "7"                  # WiFi channel (don't change without purpose)
 #   | | | |_|   __|_|  |_  |  |   __| |_| |_ ___ ___ 
 #   | | | | |   __| |  |  _|  |   __|  _|   | -_|  _|
 #   |_____|_|__|  |_|  |___|  |_____|_| |_|_|___|_|                                    
-# Connecting TV Ethernet to VPNTV Ethernet port, while VPNTV connected to router by home WiFi network.
-wifi2ethernet_enable: false
+# Connecting TV Ethernet to VPNTV's Ethernet port, while VPNTV itself connected to your home WiFi network.
+wifi2ethernet_enable: false        # Set true or false
 bridge_subnet: "10.0.90.0/24"
 
 #    _____ _   _              ___    _ _ _ _ _____ _ 
 #   |   __| |_| |_ ___ ___   |_  |  | | | |_|   __|_|
 #   |   __|  _|   | -_|  _|  |  _|  | | | | |   __| |
 #   |_____|_| |_|_|___|_|    |___|  |_____|_|__|  |_|
-# Connecting TV to VPNTV own WiFi network while VPNTV connected to router by Ethernet cable.
-ethernet2wifi_enable: false
+# Connecting TV to VPNTV's new WiFi network while VPNTV connected to your home router by Ethernet cable.
+ethernet2wifi_enable: false        # Set true or false
+wifi_mod_enable: false             # To install custom RTL WiFi modules (don't change without purpose)
+wifi_ssid: "vpntv"                 # WiFi network name to connect to.
+wifi_password: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
+wifi_interface: "wlan1"            # WiFi interface (don't change without purpose)
+wifi_channel: "7"                  # WiFi channel (don't change without purpose)
