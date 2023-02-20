@@ -31,16 +31,19 @@
       ansible.builtin.import_tasks: tasks/ovpn-client.yml
       when: ovpnclient_enable
 
-    - name: Installing WiFi card modules
+    - name: Installing WiFi dongle modules
       ansible.builtin.import_tasks: tasks/wifi-modules.yml
       when: wifi_mod_enable
 
-    - name: Configuring second wifi card as AP for TV
-      ansible.builtin.import_tasks: tasks/config-wifi.yml
+    - name: Wireless Connection Type 1. TV WiFi to VPNTV WiFi
+      ansible.builtin.import_tasks: tasks/config-wifi2wifi.yml
       when: wifi2wifi_enable
 
 # This Part not completed yet:
-#    - name: Configuring Ethernet interface as direct connection to TV
-#      ansible.builtin.import_tasks: tasks/config-ethernet.yml
+#    - name: Wireless Connection Type 2. TV WiFi to VPNTV Ethernet
+#      ansible.builtin.import_tasks: tasks/config-eth2wifi.yml
+#      when: ethernet2wifi_enable
+
+#    - name: Wired Connection. TV Ethernet to VPNTV Ethernet port
+#      ansible.builtin.import_tasks: tasks/config-wifi2eth.yml
 #      when: wifi2ethernet_enable
-    
