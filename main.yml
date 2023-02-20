@@ -35,15 +35,15 @@
       ansible.builtin.import_tasks: tasks/wifi-modules.yml
       when: wifi_mod_enable
 
-    - name: Wireless Connection Type 1. TV WiFi to VPNTV WiFi
+    - name: Wireless Connection Type 1. TV WiFi to VPNTV via Router WiFi
       ansible.builtin.import_tasks: tasks/config-wifi2wifi.yml
       when: wifi2wifi_enable
 
-    - name: Wireless Connection Type 2. TV to VPNTV WiFi to Router Ethernet port
+    - name: Wireless Connection Type 2. TV WiFi to VPNTV via Router Ethernet port
       ansible.builtin.import_tasks: tasks/config-eth2wifi.yml
       when: ethernet2wifi_enable
 
 # This Part not completed yet:
-#    - name: Wired Connection. TV Ethernet to VPNTV to Router WiFi
+#    - name: Wired Connection. TV Ethernet to VPNTV via Router WiFi
 #      ansible.builtin.import_tasks: tasks/config-wifi2eth.yml
 #      when: wifi2ethernet_enable
