@@ -3,7 +3,7 @@
 
 <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection type 1" width="255" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless2.png" alt="wireless connection type 2" width="255" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection" width="250" border="1" />
 
-At the moment project supports WiFi connection only, but Ethernet connection functionality is already in development.
+At the moment project supports Wireless connection type 1 only, but rest functionality is already in development.
 
 ## Requirements
    ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
