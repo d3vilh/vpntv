@@ -1,5 +1,5 @@
 ---
-- name: Install and configure dnsmasq, hostapd and iptables-persistent on Debian
+- name: Wireles T1. Install and configure dnsmasq, hostapd and iptables-persistent on Debian
   become: yes
   apt:
     name: 
@@ -10,7 +10,7 @@
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install and configure dnsmasq, hostapd and iptables-persistent on Arch
+- name: Wireles T1. Install and configure dnsmasq, hostapd and iptables-persistent on Arch
   become: yes
   pacman:
     name: 
@@ -21,11 +21,11 @@
     state: present
   when: ansible_facts.os_family == 'Arch'
 
-- name: Unmask hostapd
+- name: Wireles T1. Unmask hostapd
   become: yes
   command: systemctl unmask hostapd
 
-- name: Copy templated hostapd config into a place.
+- name: Wireles T1. Copy templated hostapd config into a place.
   become: yes
   ansible.builtin.template:
     src: ./templates/hostapd.conf.yaml
@@ -36,26 +36,26 @@
   notify:
     - restart hostapd
 
-- name: Start and enable hostapd service
+- name: Wireles T1. Start and enable hostapd service
   become: yes
   systemd:
     name: hostapd
     state: started
     enabled: yes
 
-- name: Enable IP Forwarding Configuration
+- name: Wireles T1. Enable IP Forwarding Configuration
   become: yes
   lineinfile:
     path: /etc/sysctl.conf
     regexp: '^#net.ipv4.ip_forward=1'
     line: 'net.ipv4.ip_forward=1'
 
-- name: Immedeately apply IP Forwarding
+- name: Wireles T1. Immedeately apply IP Forwarding
   become: yes
   shell: |
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-- name: Check vpntv wifi iptables rules were already applied
+- name: Wireles T1. Check vpntv wifi iptables rules were already applied
   become: yes
   lineinfile:
     state: absent
@@ -65,7 +65,7 @@
   changed_when: false
   register: iptables_vpntv_rules_check
 
-- name: Copy templated iptables persistent rules into a place.
+- name: Wireles T1. Copy templated iptables persistent rules into a place.
   become: yes
   ansible.builtin.template:
     src: ./templates/w2w-ipt-rules.v4.yaml
@@ -77,7 +77,7 @@
   notify:
     - Reload iptables rules
 
-- name: Check vpntv dhcpcd static IP configuration was already done
+- name: Wireles T1. Check vpntv dhcpcd static IP configuration was already done
   become: yes
   lineinfile:
     state: absent
@@ -87,7 +87,7 @@
   changed_when: false
   register: dhcpcd_vpntv_rules_check
 
-- name: Add vpntv dhcpcd static IP configuration
+- name: Wireles T1. Add vpntv dhcpcd static IP configuration
   become: yes
   lineinfile:
     state: present
@@ -98,7 +98,7 @@
   notify:
     - restart dhcpcd
 
-- name: Check vpntv dnsmasq configuration was already done
+- name: Wireles T1. Check vpntv dnsmasq configuration was already done
   become: yes
   lineinfile:
     state: absent
@@ -108,7 +108,7 @@
   changed_when: false
   register: dnsmasq_vpntv_rules_check
 
-- name: Add vpntv dnsmasq configuration
+- name: Wireles T1. Add vpntv dnsmasq configuration
   become: yes
   lineinfile:
     state: present
