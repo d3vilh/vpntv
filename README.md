@@ -1,4 +1,4 @@
-# vpntv project
+# VPNTV project
 **OpenVPN Client for any TV or TV-boxes**, provides OpenVPN client running as a service on your Raspberry Pi or any other Linux device. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with this project. Supports **Wired** (Ethernet cable) and **Wireless** (WiFi) connection types to your TV.
 
 <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wireless.png" alt="wireless connection" width="255" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired.png" alt="wired connection type 1" width="250" border="1" /> <img src="https://github.com/d3vilh/vpntv/raw/main/images/vpntv-wired2.png" alt="wired connection type 2" width="255" border="1" />
@@ -7,9 +7,9 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
 
 ## Requirements
  ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
- ### [Software Requirements](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
+ ### [Raspbian Installation Guide](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
- ## vpntv installation steps
+ ## VPNTV installation steps
   1. Update your Raspberry Pi OS:
      ```shell
      sudo apt-get update && sudo apt-get upgrade -y
@@ -47,28 +47,31 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
 
          * **ovpnclient_enable** - enable/disable OpenVPN client service. You need to have OpenVPN client configuration file in `client-ovpn` directory (see next installation step).
   
-         * **wifi_enable** - enable/disable VT over WiFi connection. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Used only if you have WiFi dongle connected to your Raspberry Pi. Can't be used with Ethernet connection `ethernet_enable` option at the same time.
+         * **wifi2wifi_enable** - enable/disable VT over WiFi connection. VPNTV connects to your home WiFi network and create new WiFi network for your TV. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Used only if you have WiFi dongle connected to your Raspberry Pi. Can't be used with other connection options at the same time.
   
          * **wifi_mod_enable** - enable/disable custom WiFi modules installation. You need to enable it if your WiFi dongle does not support AP mode by Raspberry Pi OS by default. List of all supported WiFi dongles can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md).
   
-         * **ethernet_enable** - enable/disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi.
+         * **wifi2ethernet_enable** - enable/disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi. Can't be used with other connection options at the same time.
+
+         * **ethernet2wifi_enable** - enable/disable TV over WiFi connection, while VPNTV connected by Ethernet cable to your home Router. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Can't be used with other connection options at the same time.
       </details>
 
-      > **Note**: You cant use both WiFi and Ethernet at the same time, so if you want to use WiFi, you have to disable Ethernet.
+         > **Note**: You can use only one connection option at the same time. Choose wisely and don't forget to disable (`false`) all other options.
 
-  8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`.
-   
+  8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`. Here is example of [client.ovpn](https://github.com/d3vilh/vpntv/blob/master/client-ovpn/example-client.ovpn) file configuration. All the parameters inside depends on your VPN Server configuration. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with VPNTV project.
+
   9.  Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
 
   10.  Run installation playbook:
-   ```shell
-      ansible-playbook main.yml
-   ```
-   > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
+       ```shell
+       ansible-playbook main.yml
+       ```
+       > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
+       
   11.  Reboot your Pi:
-   ```shell
-      sudo reboot
-   ```
+       ```shell
+       sudo reboot
+       ```
 
 # Active development notification
 At the moment it is **in active developement** and **Testers are welcome!**
