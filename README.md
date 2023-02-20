@@ -10,8 +10,8 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
    ### [Raspbian Installation Guide](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
 ## VPNTV installation steps
- When you have your Raspberry Pi with Raspbian OS installed and configured, you can start with VPNTV installation steps.
-  1. Update your Raspberry Pi OS:
+ When you have your Raspberry Pi with Raspbian OS [installed and configured](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration), you can start with VPNTV installation steps described below:
+  1. Login on your Raspberry Pi as `vpntv` user and update your Raspberry Pi OS:
      ```shell
      sudo apt-get update && sudo apt-get upgrade -y
      ```
@@ -50,7 +50,7 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
   
          * **wifi2wifi_enable** - enable/disable VT over WiFi connection. VPNTV connects to your home WiFi network and create new WiFi network for your TV. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Used only if you have WiFi dongle connected to your Raspberry Pi. Can't be used with other connection options at the same time.
   
-         * **wifi_mod_enable** - enable/disable custom WiFi modules installation. You need to enable it if your WiFi dongle does not support AP mode by Raspberry Pi OS by default. List of all supported WiFi dongles can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md).
+         * **wifi_mod_enable** - enable/disable custom WiFi modules installation. You need to enable it if your WiFi dongle does not support AP mode by Raspberry Pi OS by default. [Refer to the list](https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md) of all supported WiFi dongles.
   
          * **wifi2ethernet_enable** - enable/disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi. Can't be used with other connection options at the same time.
 
@@ -59,7 +59,8 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
 
          > **Note**: You can use only one connection option at the same time. Choose wisely and don't forget to disable (`false`) all other options.
 
-  8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`. Here is example of [client.ovpn](https://github.com/d3vilh/vpntv/blob/master/client-ovpn/example-client.ovpn) file configuration. All the parameters inside depends on your VPN Server configuration. You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with VPNTV project.
+  8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`. Here is example of [client.ovpn](https://github.com/d3vilh/vpntv/blob/master/client-ovpn/example-client.ovpn) file configuration. All the parameters of `client.ovpn` depends on your VPN Server configuration. 
+      > **Note**: You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with VPNTV project.
 
   9.  Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
 
@@ -74,6 +75,8 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
        sudo reboot
        ```
 
+  12.  After the reboot, VPNTV will initiate OpenVPN connection to your VPN server and create WiFi network for your TV. You can connect to it and start using your VPN connection. If your preffered connection option is Ethernet - connect VPNTV to the Ethernet port of your TV and you are ready to go.
+ 
 # Active development notification
 At the moment it is **in active developement** and **Testers are welcome!**
 
