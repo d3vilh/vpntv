@@ -6,7 +6,7 @@
 At the moment project supports Wireless connection type 1 only, but rest functionality is already in development.
 
 ## Requirements
-   ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
+   ### [Hardware Requirements Guide](https://github.com/d3vilh/vpntv-hardware)
    ### [Raspbian Installation Guide](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
 ## VPNTV installation steps
