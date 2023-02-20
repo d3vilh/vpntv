@@ -6,10 +6,11 @@
 At the moment project supports WiFi connection only, but Ethernet connection functionality is already in development.
 
 ## Requirements
- ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
- ### [Raspbian Installation Guide](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
+   ### [Hardware Requirements](https://github.com/d3vilh/vpntv-hardware)
+   ### [Raspbian Installation Guide](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
- ## VPNTV installation steps
+## VPNTV installation steps
+ When you have your Raspberry Pi with Raspbian OS installed and configured, you can start with VPNTV installation steps.
   1. Update your Raspberry Pi OS:
      ```shell
      sudo apt-get update && sudo apt-get upgrade -y
@@ -67,7 +68,7 @@ At the moment project supports WiFi connection only, but Ethernet connection fun
        ansible-playbook main.yml
        ```
        > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
-       
+
   11.  Reboot your Pi:
        ```shell
        sudo reboot
