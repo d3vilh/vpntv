@@ -9,7 +9,7 @@ At the moment project supports Wireless connection type 1 only, but rest functio
    ### [Hardware Requirements Guide](https://github.com/d3vilh/vpntv-hardware)
    ### [Raspbian Installation Guide](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration)
 
-## VPNTV installation steps
+## VPNTV Software Installation Steps
  When you have your Raspberry Pi with Raspbian OS [installed and configured](https://github.com/d3vilh/vpntv-hardware/tree/main/imager-configuration), you can start with VPNTV installation steps described below:
   1. Login on your Raspberry Pi as `vpntv` user and update your Raspberry Pi OS:
      ```shell
