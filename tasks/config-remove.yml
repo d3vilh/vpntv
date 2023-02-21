@@ -41,6 +41,4 @@
 
 - name: Remove iptables rules config
   become: yes
-  file:
-    path: "/etc/iptables/rules.v4"
-    state: absent
+  command: truncate -s 0 /etc/iptables/rules.v4
