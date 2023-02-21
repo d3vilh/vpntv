@@ -1,0 +1,46 @@
+---
+- name: Remove VPNTV DHCPCD configuration
+  become: yes
+  blockinfile:
+    state: absent
+    path: /etc/dhcpcd.conf
+    marker: "#VPNTV"
+    marker_begin: "#VPNTV DHCPCD RULES"
+    marker_end: "#VPNTV CONF END.*"
+    backup: yes
+
+- name: Remove VPNTV DNSMASK configuration
+  become: yes
+  blockinfile:
+    state: absent
+    path: /etc/dnsmasq.conf
+    marker: "#VPNTV"
+    marker_begin: "#VPNTV DNSMASQ RULES"
+    marker_end: "#VPNTV CONF END.*"
+    backup: yes
+
+- name: Stop and disable hostapd service
+  become: yes
+  systemd:
+    name: hostapd
+    state: stopped
+    enabled: no
+
+- name: Remove hostapd config
+  become: yes
+  file:
+    path: "/etc/hostapd/hostapd.conf"
+    state: absent
+
+- name: Disable IP Forwarding Configuration
+  become: yes
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^net.ipv4.ip_forward=1'
+    line: '#net.ipv4.ip_forward=1'
+
+- name: Remove iptables rules config
+  become: yes
+  file:
+    path: "/etc/iptables/rules.v4"
+    state: absent

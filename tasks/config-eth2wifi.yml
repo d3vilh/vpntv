@@ -60,7 +60,7 @@
   lineinfile:
     state: absent
     dest: /etc/iptables/rules.v4
-    regexp: "^# VPNTV OPENVPN RULES"
+    regexp: "^#VPNTV OPENVPN RULES"
   check_mode: true
   changed_when: false
   register: iptables_vpntv_rules_check
@@ -82,7 +82,7 @@
   lineinfile:
     state: absent
     dest: /etc/dhcpcd.conf
-    regexp: "^# VPNTV DHCPCD RULES"
+    regexp: "^#VPNTV DHCPCD RULES"
   check_mode: true
   changed_when: false
   register: dhcpcd_vpntv_rules_check
@@ -92,7 +92,7 @@
   lineinfile:
     state: present
     path: /etc/dhcpcd.conf
-    line: "\n# VPNTV DHCPCD RULES\ninterface wlan0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan0\n#VPNTV CONF END T1"
+    line: "\n#VPNTV DHCPCD RULES\ninterface wlan0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan0\n#VPNTV CONF END T1"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
   notify:
@@ -103,7 +103,7 @@
   lineinfile:
     state: absent
     dest: /etc/dnsmasq.conf
-    regexp: "^# VPNTV DNSMASQ RULES"
+    regexp: "^#VPNTV DNSMASQ RULES"
   check_mode: true
   changed_when: false
   register: dnsmasq_vpntv_rules_check
@@ -113,7 +113,7 @@
   lineinfile:
     state: present
     path: /etc/dnsmasq.conf
-    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END T1"
+    line: "\n#VPNTV DNSMASQ RULES\ninterface=wlan0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END T1"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
   notify:
