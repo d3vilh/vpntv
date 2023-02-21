@@ -35,6 +35,10 @@
       ansible.builtin.import_tasks: tasks/wifi-modules.yml
       when: wifi_mod_enable
 
+#    - name: Remove previously done WiFi and Wired configuration
+#      ansible.builtin.import_tasks: tasks/config-remove.yml
+#      when: wifi_config_remove
+
     - name: Wireless Connection Type 1. TV WiFi to VPNTV via Router Ethernet port
       ansible.builtin.import_tasks: tasks/config-eth2wifi.yml
       when: ethernet2wifi_enable
@@ -47,7 +51,3 @@
     - name: Wired Connection. TV Ethernet to VPNTV via Router WiFi
       ansible.builtin.import_tasks: tasks/config-wifi2eth.yml
       when: wifi2ethernet_enable
-
-#    - name: Remove WiFi and Wired configuration
-#      ansible.builtin.import_tasks: tasks/config-remove.yml
-#      when: wifi_config_remove
