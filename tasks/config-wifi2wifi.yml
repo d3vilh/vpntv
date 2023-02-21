@@ -25,7 +25,7 @@
   become: yes
   command: systemctl unmask hostapd
 
-- name: Wireles Type 1. Copy templated hostapd config into a place.
+- name: Wireles Type 1. Copy templated hostapd config into a place
   become: yes
   ansible.builtin.template:
     src: ./templates/w2w-hostapd.conf.yaml
@@ -65,7 +65,7 @@
   changed_when: false
   register: iptables_vpntv_rules_check
 
-- name: Wireles Type 1. Copy templated iptables persistent rules into a place.
+- name: Wireles Type 1. Copy templated iptables persistent rules into a place
   become: yes
   ansible.builtin.template:
     src: ./templates/w2w-ipt-rules.v4.yaml
