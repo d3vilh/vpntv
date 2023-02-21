@@ -47,14 +47,15 @@ At the moment project supports Wireless connections(both types), Wired connectio
          </summary>
 
          * **ovpnclient_enable** - enable/disable OpenVPN client service. You need to have OpenVPN client configuration file in `client-ovpn` directory (see next installation step).
-  
+         
+         * **ethernet2wifi_enable** - enable/disable TV over WiFi connection, while VPNTV connected by Ethernet cable to your home Router. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Prefferable setup. Can't be used with other connection options at the same time.
+
          * **wifi2wifi_enable** - enable/disable VT over WiFi connection. VPNTV connects to your home WiFi network and create new WiFi network for your TV. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Used only if you have WiFi dongle connected to your Raspberry Pi. Can't be used with other connection options at the same time.
   
          * **wifi_mod_enable** - enable/disable custom WiFi modules installation. You need to enable it if your WiFi dongle does not support AP mode by Raspberry Pi OS by default. [Refer to the list](https://github.com/d3vilh/vpntv/tree/main/wifi-modules) of all supported WiFi dongles.
   
          * **wifi2ethernet_enable** - enable/disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi. Can't be used with other connection options at the same time.
 
-         * **ethernet2wifi_enable** - enable/disable TV over WiFi connection, while VPNTV connected by Ethernet cable to your home Router. You need to configure here WiFi network name and password of new AP which will be up on vpntv. Can't be used with other connection options at the same time.
       </details>
 
          > **Note**: You can use only one connection option at the same time. Choose wisely and don't forget to disable (`false`) all other options.

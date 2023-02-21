@@ -1,15 +1,15 @@
 #VPNTV CONF START
 country_code=SO
-interface={{ wifi_interface_t1 }}
-ssid={{ wifi_ssid_t1 }}
+interface={{ wifi_interface_t2 }}
+ssid={{ wifi_ssid_t2 }}
 hw_mode=g
-channel={{ wifi_channel_t1 }}
+channel={{ wifi_channel_t2 }}
 macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase={{ wifi_password_t1 }}
+wpa_passphrase={{ wifi_password_t2 }}
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
-#VPNTV CONF END T1
+#VPNTV CONF END T2

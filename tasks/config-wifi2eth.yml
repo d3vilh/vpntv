@@ -68,7 +68,7 @@
   lineinfile:
     state: present
     path: /etc/dhcpcd.conf
-    line: "\n# VPNTV DHCPCD RULES\ninterface eth0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces eth0\n#VPNTV CONF END"
+    line: "\n# VPNTV DHCPCD RULES\ninterface eth0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces eth0\n#VPNTV CONF END WIRED"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
   notify:
@@ -89,7 +89,7 @@
   lineinfile:
     state: present
     path: /etc/dnsmasq.conf
-    line: "\n# VPNTV DNSMASQ RULES\ninterface=eth0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END"
+    line: "\n# VPNTV DNSMASQ RULES\ninterface=eth0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END WIRED"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
   notify:

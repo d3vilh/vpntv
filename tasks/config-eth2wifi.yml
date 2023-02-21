@@ -1,5 +1,5 @@
 ---
-- name: Wireles Type 2. Install and configure dnsmasq, hostapd and iptables-persistent on Debian
+- name: Wireles Type 1. Install and configure dnsmasq, hostapd and iptables-persistent on Debian
   become: yes
   apt:
     name: 
@@ -10,7 +10,7 @@
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Wireles Type 2. Install and configure dnsmasq, hostapd and iptables-persistent on Arch
+- name: Wireles Type 1. Install and configure dnsmasq, hostapd and iptables-persistent on Arch
   become: yes
   pacman:
     name: 
@@ -21,11 +21,11 @@
     state: present
   when: ansible_facts.os_family == 'Arch'
 
-- name: Wireles Type 2. Unmask hostapd
+- name: Wireles Type 1. Unmask hostapd
   become: yes
   command: systemctl unmask hostapd
 
-- name: Wireles Type 2. Copy templated hostapd config into a place.
+- name: Wireles Type 1. Copy templated hostapd config into a place.
   become: yes
   ansible.builtin.template:
     src: ./templates/e2w-hostapd.conf.yaml
@@ -36,26 +36,26 @@
   notify:
     - restart hostapd
 
-- name: Wireles Type 2. Start and enable hostapd service
+- name: Wireles Type 1. Start and enable hostapd service
   become: yes
   systemd:
     name: hostapd
     state: started
     enabled: yes
 
-- name: Wireles Type 2. Enable IP Forwarding Configuration
+- name: Wireles Type 1. Enable IP Forwarding Configuration
   become: yes
   lineinfile:
     path: /etc/sysctl.conf
     regexp: '^#net.ipv4.ip_forward=1'
     line: 'net.ipv4.ip_forward=1'
 
-- name: Wireles Type 2. Immedeately apply IP Forwarding
+- name: Wireles Type 1. Immedeately apply IP Forwarding
   become: yes
   shell: |
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-- name: Wireles Type 2. Check vpntv wifi iptables rules were already applied
+- name: Wireles Type 1. Check vpntv wifi iptables rules were already applied
   become: yes
   lineinfile:
     state: absent
@@ -65,7 +65,7 @@
   changed_when: false
   register: iptables_vpntv_rules_check
 
-- name: Wireles Type 2. Copy templated iptables persistent rules into a place.
+- name: Wireles Type 1. Copy templated iptables persistent rules into a place.
   become: yes
   ansible.builtin.template:
     src: ./templates/e2w-ipt-rules.v4.yaml
@@ -77,7 +77,7 @@
   notify:
     - Reload iptables rules
 
-- name: Wireles Type 2. Check vpntv dhcpcd static IP configuration was already done
+- name: Wireles Type 1. Check vpntv dhcpcd static IP configuration was already done
   become: yes
   lineinfile:
     state: absent
@@ -87,18 +87,18 @@
   changed_when: false
   register: dhcpcd_vpntv_rules_check
 
-- name: Wireles Type 2. Add vpntv dhcpcd static IP configuration
+- name: Wireles Type 1. Add vpntv dhcpcd static IP configuration
   become: yes
   lineinfile:
     state: present
     path: /etc/dhcpcd.conf
-    line: "\n# VPNTV DHCPCD RULES\ninterface wlan0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan0\n#VPNTV CONF END T2"
+    line: "\n# VPNTV DHCPCD RULES\ninterface wlan0\n    static ip_address=10.0.90.1/24\n    nohook wpa_supplicant\ndenyinterfaces wlan0\n#VPNTV CONF END T1"
     backup: yes
   when: dhcpcd_vpntv_rules_check.found == 0
   notify:
     - restart dhcpcd
 
-- name: Wireles Type 2. Check vpntv dnsmasq configuration was already done
+- name: Wireles Type 1. Check vpntv dnsmasq configuration was already done
   become: yes
   lineinfile:
     state: absent
@@ -108,12 +108,12 @@
   changed_when: false
   register: dnsmasq_vpntv_rules_check
 
-- name: Wireles Type 2. Add vpntv dnsmasq configuration
+- name: Wireles Type 1. Add vpntv dnsmasq configuration
   become: yes
   lineinfile:
     state: present
     path: /etc/dnsmasq.conf
-    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END T2"
+    line: "\n# VPNTV DNSMASQ RULES\ninterface=wlan0\ndhcp-range=10.0.90.2,10.0.90.25,255.255.255.0,24h\n#VPNTV CONF END T1"
     backup: yes
   when: dnsmasq_vpntv_rules_check.found == 0
   notify:
