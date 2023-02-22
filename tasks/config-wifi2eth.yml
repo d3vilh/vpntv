@@ -31,7 +31,7 @@
   shell: |
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-- name: Wired TV Connection. Check vpntv wifi iptables rules were already applied
+- name: Wired TV Connection. Check vpntv iptables rules were already applied
   become: yes
   lineinfile:
     state: absent

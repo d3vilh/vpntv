@@ -1,0 +1,22 @@
+---
+- name: Getting VPNTV kernel version
+  shell: uname -r
+  register: kernel_version
+
+- name: Unload the 8188eu module
+  become: yes
+  command: rmmod 8188eu
+  when: lsmod_result != 0
+  ignore_errors: yes
+
+- name: Remove WiFi modules blacklist blacklist-r8188eu.conf
+  become: yes
+  file:
+    path: "/etc/modprobe.d/blacklist-r8188eu.conf"
+    state: absent
+
+- name: Remove 8188eu wireless driver module
+  become: yes
+  file:
+    path: "/lib/modules/{{ kernel_version.stdout }}/kernel/drivers/net/wireless/8188eu.ko.xz"
+    state: absent

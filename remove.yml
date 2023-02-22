@@ -1,0 +1,28 @@
+---
+- name: Remove VPNTV configuration
+  hosts: vpntv
+  become: 'yes'
+
+  pre_tasks:
+    - name: Load configuration (with defaults from example file)
+      ansible.builtin.include_vars: "{{ item }}"
+      loop:
+        - example.config.yml
+        - config.yml
+
+  handlers:
+    - name: Include handlers
+      ansible.builtin.import_tasks: tasks/handlers.yml
+
+  tasks:
+    - name: Remove previously done WiFi and Wired configuration
+      ansible.builtin.import_tasks: tasks/remove-config-wifi.yml
+      when: wifi_config_remove
+
+    - name: Remove WiFi modules
+      ansible.builtin.import_tasks: tasks/remove-wifi-modules.yml
+      when: wifi_module_remove
+
+    - name: Remove OpenVPN client and configuration
+      ansible.builtin.import_tasks: tasks/remove-ovpn-client.yml
+      when: ovpnclient_remove

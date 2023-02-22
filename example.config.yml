@@ -41,13 +41,13 @@ wifi_channel_t2: "7"                  # WiFi channel (don't change without purpo
 # Wired Connection.
 # Connecting TV Ethernet to VPNTV's Ethernet port, while VPNTV itself connected to your home WiFi network
 wifi2ethernet_enable: false           # Set true or false
-bridge_subnet: "10.0.90.0/24"
 
-#    _ _ _ _ _____ _    _____ ___ _____ ___ _____ ___ 
-#   | | | |_|   __|_|  | __  |  _|     |   |  |  |  _|
-#   | | | | |   __| |  |    -|  _| | | | | |  |  |  _|
-#   |_____|_|__|  |_|  |__|__|___|_|_|_|___|\___/|___|
-# WiFi Configuration remove.
+#    _____ ___ _____ ___ _____ ___ 
+#   | __  |  _|     |   |  |  |  _|
+#   |    -|  _| | | | | |  |  |  _|
+#   |__|__|___|_|_|_|___|\___/|___|
+# VPNTV Configuration remove.
 # Removes any Wireless or Wired configuration which was previously done
-# before running this task, you need to uncomment the task in main.yml
 wifi_config_remove: false             # Set true or false
+wifi_module_remove: false             # Set true or false
+ovpnclient_remove: false              # Set true or false

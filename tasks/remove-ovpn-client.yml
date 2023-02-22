@@ -1,0 +1,32 @@
+---
+- name: Stop and disable openvpn-client@client.service service
+  become: yes
+  systemd:
+    name: openvpn-client@client.service
+    state: stopped
+    enabled: no
+
+- name: Remove openvpn@.service from systemd directory
+  become: yes
+  file:
+    path: "/etc/systemd/system/openvpn@.service"
+    state: absent
+
+- name: Remove OpenVPN client config 
+  become: yes
+  file:
+    path: "/etc/openvpn/client/client.conf"
+    state: absent
+
+- name: Debian OpenVPN-client Remove
+  become: yes
+  apt:
+    name: openvpn
+    state: absent
+  when: ansible_facts.os_family == "Debian"
+
+- name: Arch OpenVPN-client Remove
+  pacman:
+    name: openvpn
+    state: absent
+  when: ansible_facts.os_family == "Arch"
