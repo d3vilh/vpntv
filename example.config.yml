@@ -7,6 +7,9 @@ config_dir: '~'
 #     |_| |_|_|_|_|___|_____|___|_|_|___|
 # Your timezone for all services.
 ur_timezone: "Europe/Kyiv"
+wifi_ssid: "vpntv"                    # WiFi network name to connect to
+wifi_password: "Glory2Ukraine!"       # You can change it to "HeroiyamSlava!"
+wifi_channel: "7"                     # WiFi channel (don't change without purpose)
 
 #    _____ _____ _____                 
 #   |  |  |  _  |   | |                
@@ -23,10 +26,7 @@ openvpn_external_port: "1194"         # OpenVPN client external port (don't chan
 # Wireless Connection Type 1.
 # Connecting TV to VPNTV's new WiFi network while VPNTV connected to your home router Ethernet port
 ethernet2wifi_enable: false           # Set true or false
-wifi_ssid_t1: "vpntv"                 # WiFi network name to connect to
-wifi_password_t1: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
 wifi_interface_t1: "wlan0"            # WiFi interface (don't change without purpose)
-wifi_channel_t1: "7"                  # WiFi channel (don't change without purpose)
 
 #    _ _ _ _ _____ _    ___    _ _ _ _ _____ _                   
 #   | | | |_|   __|_|  |_  |  | | | |_|   __|_|                  
@@ -36,10 +36,7 @@ wifi_channel_t1: "7"                  # WiFi channel (don't change without purpo
 # Connecting TV to VPNTV's new WiFi network while VPNTV itself connected to your home WiFi network
 wifi2wifi_enable: false               # Set true or false
 wifi_mod_enable: false                # To install custom RTL WiFi modules (don't change without purpose)
-wifi_ssid_t2: "vpntv"                 # WiFi network name to connect to
-wifi_password_t2: "Glory2Ukraine!"    # You can change it to "HeroiyamSlava!"
 wifi_interface_t2: "wlan1"            # WiFi interface (don't change without purpose)
-wifi_channel_t2: "7"                  # WiFi channel (don't change without purpose)
 
 #    _ _ _ _ _____ _    ___    _____ _   _           
 #   | | | |_|   __|_|  |_  |  |   __| |_| |_ ___ ___ 
