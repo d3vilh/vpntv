@@ -7,7 +7,7 @@ config_dir: '~'
 #     |_| |_|_|_|_|___|_____|___|_|_|___|
 # Your timezone for all services.
 ur_timezone: "Europe/Kyiv"
-wifi_ssid: "vpntv"                    # WiFi network name to connect to
+wifi_ssid: "vpntv"                    # New WiFi network name to connect your TV to
 wifi_password: "Glory2Ukraine!"       # You can change it to "HeroiyamSlava!"
 wifi_channel: "7"                     # WiFi channel (don't change without purpose)
 
