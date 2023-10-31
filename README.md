@@ -103,3 +103,5 @@ If for some reasons you want to remove one or all VPNTV software components from
        ```shell
        sudo reboot
        ```
+
+<a href="https://www.buymeacoffee.com/d3vilh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="51" width="217"></a>
