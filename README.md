@@ -23,26 +23,54 @@
      ```shell
      git clone https://github.com/d3vilh/vpntv
      ```
-  4. Then enter the repository directory: 
-     ```shell 
-     cd vpntv
-     ```
-  5. Install requirements: 
+  4. Install requirements: 
      ```shell
-     ansible-galaxy collection install -r requirements.yml
+     cd vpntv && ansible-galaxy collection install -r requirements.yml
      ```
      > If you see `ansible-galaxy: command not found`, you have to relogin (or reboot your Pi) and then try again.
-  6. Make copies of the configuration files and modify them for your enviroment:
+
+  <details>
+    <summary>Continue Installation with WebUI</summary>
+
+  5. Run [Webinstall](https://github.com/d3vilh/vpntv-webconfig) binary:
      ```shell
-     yes | cp -p example.inventory.ini inventory.ini 
-     yes | cp -p example.config.yml config.yml
+     secret@rpgw:~/vpntv $ ./webinstall
+     2023/07/07 18:01:03 Welcome! The web interface will guide you on installation process.
+     Installation logs: webinstall.log
+     2023/07/07 18:01:03 Starting web server on http://10.10.10.18:8088
      ```
-  7.  Modify `config.yml` to your needs.
-     **To enable** WiFi connection for your TV change `wifi_enable false` option to `wifi_enable true` and vs to disable.
+  6. Copy server address (`http://10.10.10.18:8088` as above example) from the console and paste into your browser, then press Enter. Raspberry-Gateway webinstall window will appear:
+     ![Webinstall picture 1](/images/Webinstall-02.png)
+  7. Choose all the components you would like to install and change all the passwords (keep them in mind). 
+     > **Note**: You can leave all the passwords as default, but it's not recommended.
+  8. Press "Save" button. When your configuration is ready, then press "Install" button. It will initiate installation in background:
+     ![Webinstall picture 2](/images/Webinstall-03.png)
+  9. The installation process will take some time.
+
+  * Additional options:
+    * **To Remove** any of previously installed component - click `Uninstall "component"` checkbox then `Save` configuration file and press `Uninstall` button.
+    * **To set Default options** for the next `webinstall` run - modify `example.config.yml` with the default parameters. 
+    * Default **Ansible parameters**, such as `ansible_user` can be set in `example.inventory.yml` file.
+  </details>
+
+  Afraid of GUI? Need more control?
+
+<details>
+    <summary>Install everything with CLI</summary>
+
+  5. Make copies of the configuration files and modify them for your enviroment:
+      ```shell
+      yes | cp -p example.inventory.yml inventory.yml 
+      yes | cp -p example.config.yml config.yml
+      ```
+  6. **Double check** that `ansible_user` is correct for `inventory.yml`. Need to run installtion on the remote server - follow the recomendations in config file.
+     
+     > **Note**: To make all necesary changes: `nano inventory.yml`, save the file - `Ctrl+O` and `Ctrl+X` to exit.
+  7. Modify `config.yml` to **enable** or **disable** desired containers to be installed on your Pi.
+     For example, to **enable** Portainer - change `enable_portainer: false` option to `enable_portainer: true` and vs to disable.
+     > **Note**: Default configuration options in the list below are **bold**.
       <details>
-         <summary>
-           List of available options
-         </summary>
+      <summary>List of available configuration options</summary>
 
          * **ovpnclient_enable** - enable or disable OpenVPN client service. You need to have OpenVPN client configuration file in `client-ovpn` directory (see next installation step).
          
@@ -53,28 +81,17 @@
          * **wifi_mod_enable** - enable or disable custom WiFi modules installation. You need to enable it if your WiFi dongle does not support AP mode by Raspberry Pi OS by default. [Refer to the list](https://github.com/d3vilh/vpntv/tree/main/wifi-modules) of all supported WiFi dongles.
   
          * **wifi2ethernet_enable** - enable or disable TV over Ethernet connection. Used only if your TV has Ethernet cable connected to your Raspberry Pi. Can't be used with other connection options at the same time.
-
       </details>
 
-         > **Note**: You can use only one connection option at the same time. Choose wisely and don't forget to disable (`false`) all other options.
 
   8. Copy your OpenVPN client configuration file to `client-ovpn` directory and rename it to `client.ovpn`. Here is example of [client.ovpn](https://github.com/d3vilh/vpntv/blob/master/client-ovpn/example-client.ovpn) file configuration. All the parameters of `client.ovpn` depends on your VPN Server configuration. 
       > **Note**: You may use [respberry-gateway](https://github.com/d3vilh/raspberry-gateway) or [openvpn-aws](https://github.com/d3vilh/openvpn-aws) to create your own VPN server and generate client configuration files compatible with VPNTV project. Or go with [Proton](https://protonvpn.com/support/vpn-config-download/), [Nord](https://nordvpn.com/uk/ovpn/), [Surfshark](https://support.surfshark.com/hc/en-us/articles/360003204233-How-to-set-up-OpenVPN-GUI-app-on-Windows-), [Express](https://www.expressvpn.com/support/vpn-setup/manual-config-for-windows-xp-vista-7-8-with-openvpn/), etc profiles.
 
-  9.  Modify `inventory.ini` by replace of IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up.
-
-  10.  Run installation playbook:
-       ```shell
-       ansible-playbook main.yml
-       ```
-       > **Note**: If running locally on the Pi, you may have error like `Error while fetching server API version`. You have to relogin (or reboot your Pi) and then run the playbook again.
-
-  11.  Reboot your Pi:
-       ```shell
-       sudo reboot
-       ```
-
-  12.  After the reboot, VPNTV will initiate OpenVPN connection to your VPN server and create WiFi network for your TV. You can connect to it and start using your VPN connection. If your preffered connection option is Ethernet - connect VPNTV to the Ethernet port of your TV and you are ready to go.
+  9. Run installation playbook: 
+     ```shell
+     ansible-playbook main.yml
+     ```
+     > **Note**: **If running locally on the Pi**: You may have error like `Error while fetching server API version`. You have to relogin to your Pi and then run the playbook again.
 
 ### To remove VPNTV components
 If for some reasons you want to remove one or all VPNTV software components from your Raspberry Pi, you can do it following by these steps:
@@ -103,5 +120,15 @@ If for some reasons you want to remove one or all VPNTV software components from
        ```shell
        sudo reboot
        ```
+  </details>
+  
+
+  10.  Reboot your Pi:
+       ```shell
+       sudo reboot
+       ```
+
+  11.  After the reboot, VPNTV will initiate OpenVPN connection to your VPN server and create WiFi network for your TV. You can connect to it and start using your VPN connection. If your preffered connection option is Ethernet - connect VPNTV to the Ethernet port of your TV and you are ready to go.
+
 
 <a href="https://www.buymeacoffee.com/d3vilh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="51" width="217"></a>
