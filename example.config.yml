@@ -1,11 +1,11 @@
 ---
 # Location where configuration files will be stored
 config_dir: '~'
-#    _____ _           _____             
-#   |_   _|_|_____ ___|__   |___ ___ ___ 
-#     | | | |     | -_|   __| . |   | -_|
-#     |_| |_|_|_|_|___|_____|___|_|_|___|
-# Your timezone for all services.
+#    _____ _____ _____ _____ _____    _____         ___ _     
+#   |  |  |  _  |   | |_   _|  |  |  |     |___ ___|  _|_|___ 
+#   |  |  |   __| | | | | | |  |  |  |   --| . |   |  _| | . |
+#    \___/|__|  |_|___| |_|  \___/   |_____|___|_|_|_| |_|_  |
+# TimeZone and WiFi configuration                        |___|
 ur_timezone: "Europe/Kyiv"
 wifi_ssid: "vpntv"                    # New WiFi network name to connect your TV to
 wifi_password: "Glory2Ukraine!"       # You can change it to "HeroiyamSlava!"
