@@ -98,16 +98,17 @@ If for some reasons you want to remove one or all VPNTV software components from
   1.  Modify `config.yml` to set true components you desired to remove.
      For example, **to remove** WiFi modules - change `wifi_module_remove` option from `false` to `true`.
       <details>
-         <summary>
-           List of all removal options
-         </summary>
+      <summary>
+      List of all removal options
+      </summary>
 
-         > **Note**: You can remove all components at the same time or do it one by one.
-         * **wifi_config_remove** - true/false when `true` - removes all types of VPNTV connections configuration and stop the serives.
+      > **Note**: You can remove all components at the same time or do it one by one.
 
-         * **wifi_module_remove** - true/false when `true` - removes custom WiFi modules and restore original Realtek 8188 module.
+      * **wifi_config_remove** - true/false when `true` - removes all types of VPNTV connections configuration and stop the serives.
+
+      * **wifi_module_remove** - true/false when `true` - removes custom WiFi modules and restore original Realtek 8188 module.
          
-         * **ovpnclient_remove** - true/false when `true` - removes OpenVPN client service, configuration and OpenVPN packages.
+      * **ovpnclient_remove** - true/false when `true` - removes OpenVPN client service, configuration and OpenVPN packages.
 
       </details>
 
