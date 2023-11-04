@@ -116,11 +116,6 @@ If for some reasons you want to remove one or all VPNTV software components from
        ```shell
        ansible-playbook remove.yml
        ```
-
-  3.  Reboot your Pi:
-       ```shell
-       sudo reboot
-       ```
   </details>
   
 
